@@ -24,10 +24,10 @@ class HttpWeatherApi {
   static String key = '787aa804050b4da7b70132421241101';
   static String reg = '51.660781,39.200296';
 
-  String url ='$baseUrl/current.json?key=$key&q=$reg&aqi=no&lang=ru';
-  String url2 = '$baseUrl/astronomy.json?key=$key&q=$reg&lang=ru';
-  String url3 = '$baseUrl/history.json?key=$key&q=$reg&dt=${DateFormat('yyyy-MM-dd').format(DateTime.now())}&lang=ru';
-  String url4 = '$baseUrl/forecast.json?key=$key&q=$reg&days=2&lang=ru';
+  final String url  = '$baseUrl/current.json?key=$key&q=$reg&aqi=no&lang=ru';
+  final String url2 = '$baseUrl/astronomy.json?key=$key&q=$reg&lang=ru';
+  final String url3 = '$baseUrl/history.json?key=$key&q=$reg&dt=${DateFormat('yyyy-MM-dd').format(DateTime.now())}&lang=ru';
+  final String url4 = '$baseUrl/forecast.json?key=$key&q=$reg&days=2&lang=ru';
 
   final dio = Dio();//..interceptors.add(PrettyDioLogger());
   Future<Map<String,String>> getTemp2() async {

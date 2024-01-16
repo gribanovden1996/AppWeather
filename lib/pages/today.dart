@@ -222,6 +222,9 @@ class PageTuday extends StatelessWidget {
                           SmallWidget(
                             'Group4.png', 'Sunset', txt3, txt4, arrow: null, img2: null,),
                         ],
+
+
+
                       );
                     }
                   }

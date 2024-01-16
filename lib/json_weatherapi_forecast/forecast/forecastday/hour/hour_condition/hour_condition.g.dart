@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'condition.dart';
+part of 'hour_condition.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

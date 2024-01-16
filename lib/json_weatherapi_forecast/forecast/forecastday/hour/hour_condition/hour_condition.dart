@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'condition.freezed.dart';
-part 'condition.g.dart';
+part 'hour_condition.freezed.dart';
+part 'hour_condition.g.dart';
 
 @Freezed(
   toJson: true,

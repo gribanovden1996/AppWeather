@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'condition.dart';
+import 'hour_condition/hour_condition.dart';
 
 
 part 'hour.freezed.dart';

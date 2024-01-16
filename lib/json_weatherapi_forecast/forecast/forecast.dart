@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'forecastday.dart';
+import 'forecastday/forecastday.dart';
 
 part 'forecast.freezed.dart';
 part 'forecast.g.dart';

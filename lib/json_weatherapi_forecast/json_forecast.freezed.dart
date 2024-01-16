@@ -21,6 +21,8 @@ JsonForecast _$JsonForecastFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$JsonForecast {
   Forecast get forecast => throw _privateConstructorUsedError;
+  Location get location => throw _privateConstructorUsedError;
+  Current get current => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,9 +36,11 @@ abstract class $JsonForecastCopyWith<$Res> {
           JsonForecast value, $Res Function(JsonForecast) then) =
       _$JsonForecastCopyWithImpl<$Res, JsonForecast>;
   @useResult
-  $Res call({Forecast forecast});
+  $Res call({Forecast forecast, Location location, Current current});
 
   $ForecastCopyWith<$Res> get forecast;
+  $LocationCopyWith<$Res> get location;
+  $CurrentCopyWith<$Res> get current;
 }
 
 /// @nodoc
@@ -53,12 +57,22 @@ class _$JsonForecastCopyWithImpl<$Res, $Val extends JsonForecast>
   @override
   $Res call({
     Object? forecast = null,
+    Object? location = null,
+    Object? current = null,
   }) {
     return _then(_value.copyWith(
       forecast: null == forecast
           ? _value.forecast
           : forecast // ignore: cast_nullable_to_non_nullable
               as Forecast,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as Location,
+      current: null == current
+          ? _value.current
+          : current // ignore: cast_nullable_to_non_nullable
+              as Current,
     ) as $Val);
   }
 
@@ -67,6 +81,22 @@ class _$JsonForecastCopyWithImpl<$Res, $Val extends JsonForecast>
   $ForecastCopyWith<$Res> get forecast {
     return $ForecastCopyWith<$Res>(_value.forecast, (value) {
       return _then(_value.copyWith(forecast: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LocationCopyWith<$Res> get location {
+    return $LocationCopyWith<$Res>(_value.location, (value) {
+      return _then(_value.copyWith(location: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CurrentCopyWith<$Res> get current {
+    return $CurrentCopyWith<$Res>(_value.current, (value) {
+      return _then(_value.copyWith(current: value) as $Val);
     });
   }
 }
@@ -79,10 +109,14 @@ abstract class _$$JsonForecastImplCopyWith<$Res>
       __$$JsonForecastImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Forecast forecast});
+  $Res call({Forecast forecast, Location location, Current current});
 
   @override
   $ForecastCopyWith<$Res> get forecast;
+  @override
+  $LocationCopyWith<$Res> get location;
+  @override
+  $CurrentCopyWith<$Res> get current;
 }
 
 /// @nodoc
@@ -97,12 +131,22 @@ class __$$JsonForecastImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? forecast = null,
+    Object? location = null,
+    Object? current = null,
   }) {
     return _then(_$JsonForecastImpl(
       forecast: null == forecast
           ? _value.forecast
           : forecast // ignore: cast_nullable_to_non_nullable
               as Forecast,
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
+              as Location,
+      current: null == current
+          ? _value.current
+          : current // ignore: cast_nullable_to_non_nullable
+              as Current,
     ));
   }
 }
@@ -111,17 +155,22 @@ class __$$JsonForecastImplCopyWithImpl<$Res>
 
 @JsonSerializable(fieldRename: FieldRename.snake, createToJson: true)
 class _$JsonForecastImpl with DiagnosticableTreeMixin implements _JsonForecast {
-  _$JsonForecastImpl({required this.forecast});
+  _$JsonForecastImpl(
+      {required this.forecast, required this.location, required this.current});
 
   factory _$JsonForecastImpl.fromJson(Map<String, dynamic> json) =>
       _$$JsonForecastImplFromJson(json);
 
   @override
   final Forecast forecast;
+  @override
+  final Location location;
+  @override
+  final Current current;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'JsonForecast(forecast: $forecast)';
+    return 'JsonForecast(forecast: $forecast, location: $location, current: $current)';
   }
 
   @override
@@ -129,7 +178,9 @@ class _$JsonForecastImpl with DiagnosticableTreeMixin implements _JsonForecast {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'JsonForecast'))
-      ..add(DiagnosticsProperty('forecast', forecast));
+      ..add(DiagnosticsProperty('forecast', forecast))
+      ..add(DiagnosticsProperty('location', location))
+      ..add(DiagnosticsProperty('current', current));
   }
 
   @override
@@ -138,12 +189,15 @@ class _$JsonForecastImpl with DiagnosticableTreeMixin implements _JsonForecast {
         (other.runtimeType == runtimeType &&
             other is _$JsonForecastImpl &&
             (identical(other.forecast, forecast) ||
-                other.forecast == forecast));
+                other.forecast == forecast) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            (identical(other.current, current) || other.current == current));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, forecast);
+  int get hashCode => Object.hash(runtimeType, forecast, location, current);
 
   @JsonKey(ignore: true)
   @override
@@ -160,14 +214,20 @@ class _$JsonForecastImpl with DiagnosticableTreeMixin implements _JsonForecast {
 }
 
 abstract class _JsonForecast implements JsonForecast {
-  factory _JsonForecast({required final Forecast forecast}) =
-      _$JsonForecastImpl;
+  factory _JsonForecast(
+      {required final Forecast forecast,
+      required final Location location,
+      required final Current current}) = _$JsonForecastImpl;
 
   factory _JsonForecast.fromJson(Map<String, dynamic> json) =
       _$JsonForecastImpl.fromJson;
 
   @override
   Forecast get forecast;
+  @override
+  Location get location;
+  @override
+  Current get current;
   @override
   @JsonKey(ignore: true)
   _$$JsonForecastImplCopyWith<_$JsonForecastImpl> get copyWith =>
