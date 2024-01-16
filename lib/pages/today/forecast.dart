@@ -24,8 +24,8 @@ class ForecastHour extends StatelessWidget {
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('$i'),
-      Image.network('http:$icon'),
-      Text('$a'),
+      Image.network('http:$icon',width: 32,height: 32,),
+      Text('$a°'),
     ],
   );
   @override

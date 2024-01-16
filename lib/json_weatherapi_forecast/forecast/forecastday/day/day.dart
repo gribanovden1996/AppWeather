@@ -17,6 +17,7 @@ abstract class Day with _$Day {
   factory Day({
     required double maxtempC,
     required double mintempC,
+    required double avgtempC,
   }) = _Day;
 
   factory Day.fromJson(Map<String, dynamic> json) => _$DayFromJson(json);

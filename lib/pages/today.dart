@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weather1/pages/today/forecast.dart';
+import 'package:weather1/pages/today/graf.dart';
 import 'package:weather1/pages/today/small_widget.dart';
 import 'package:weather1/pages/today/big_widget.dart';
 import 'package:weather1/json_weatherapi_forecast/json_forecast.dart';
@@ -102,8 +103,8 @@ class PageToday extends StatelessWidget {
                   SmallWidget(
                     'Group2.png',
                     'Pressure',
-                    '${json.current.pressureMb} hpa',
-                    '${json.current.pressureIn} hpa',
+                    '${json.current.pressureMb.ceil()} hpa',
+                    '${json.current.pressureIn.ceil()} hpa',
                     arrow: false,
                     img2: 'waves.png',
                   ),
@@ -126,10 +127,10 @@ class PageToday extends StatelessWidget {
               child: BigWidget('Group 21.png', 'Hourly forecast', 150,
                   widgetData: ForecastHour(json)),
             ),
-            const Padding(
-              padding: EdgeInsets.only(bottom: 16),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
               child: BigWidget('Group 32.png', 'Day forecast', 219,
-                  widgetData: Row()),
+                  widgetData: LineChartSample2(json)),
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 16),
