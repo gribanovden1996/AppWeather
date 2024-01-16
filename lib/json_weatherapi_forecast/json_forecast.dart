@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../model/current.dart';
+import 'current/current.dart';
 import 'forecast/forecast.dart';
 import 'location/location.dart';
 

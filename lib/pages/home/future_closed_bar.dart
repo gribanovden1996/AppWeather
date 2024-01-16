@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../../json_weatherapi_forecast/json_forecast.dart';
+
 class FutureCloseBar extends StatelessWidget {
-  const FutureCloseBar({super.key, required this.data});
-  final Map<String,String> data;
+  const FutureCloseBar(this.data, {super.key});
+  final JsonForecast data;
 
   @override
   Widget build(BuildContext context) =>
@@ -18,7 +20,7 @@ class FutureCloseBar extends StatelessWidget {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('${data['name']}, ${data['country']}'),
+                          Text('${data.location.region}, ${data.location.country}'),
                           IconButton(
                               onPressed: () {},
                               icon: const Icon(Icons.search)),
@@ -35,14 +37,14 @@ class FutureCloseBar extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.baseline,
                               textBaseline: TextBaseline.alphabetic,
                               children: [
-                                Text('${data['temp']}°',
+                                Text('${data.current.tempC.ceil()}°',
                                     style: const TextStyle(fontSize: 50)),
-                                Text('Feels like ${data['feels_like']}°'),
+                                Text('Feels like ${data.current.feelslikeC.ceil()}°'),
                               ],
                             ),
                             Transform.scale(
                                 scale: 0.5,
-                                child: Image.network('http:${data['icon']}', fit: BoxFit.contain)
+                                child: Image.network('http:${data.current.condition.icon}', fit: BoxFit.contain)
                             ),
                           ],
                         ),

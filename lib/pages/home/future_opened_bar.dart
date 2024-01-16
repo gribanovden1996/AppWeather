@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+import '../../json_weatherapi_forecast/json_forecast.dart';
+
 class FutureOpenBar extends StatefulWidget {
-  const FutureOpenBar({super.key, required this.data});
-  final Map<String,String> data;
+  const FutureOpenBar(this.data, {super.key});
+  final JsonForecast data;
 
   @override
   State<FutureOpenBar> createState() => _FutureOpenBarState();
@@ -29,14 +31,6 @@ class _FutureOpenBarState extends State<FutureOpenBar> {
   }
 
   Column clouds(String icon, String description) {
-    String cloudsStr = '';
-    // int cloudsValue = int.parse(cloud);
-    // if (cloudsValue <= 15) { cloudsStr = 'cloudless';}
-    // else if (cloudsValue <= 35 && cloudsValue > 16) {cloudsStr = 'cloudy';}
-    // else if (cloudsValue <= 75 && cloudsValue > 36) {cloudsStr = 'partly cloudy';}
-    // else if (cloudsValue <= 90 && cloudsValue > 76) {cloudsStr = 'significant cloud cover';}
-    // else if (cloudsValue > 91) {cloudsStr = 'solid cloud cover';}
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -61,7 +55,7 @@ class _FutureOpenBarState extends State<FutureOpenBar> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('${widget.data['name']}, ${widget.data['country']}',
+                    Text('${widget.data.location.region}, ${widget.data.location.country}',
                       style: const TextStyle(color: Colors.white),),
                     IconButton(
                         onPressed: () {},
@@ -77,10 +71,10 @@ class _FutureOpenBarState extends State<FutureOpenBar> {
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   textBaseline: TextBaseline.ideographic,
                   children: [
-                    Text('${widget.data['temp']!}°',
+                    Text('${widget.data.current.tempC.ceil()}°',
                         style: GoogleFonts.openSans(
                             fontSize: 100, color: Colors.white)),
-                    Text('Feels like ${widget.data['feels_like']!}°',
+                    Text('Feels like ${widget.data.current.feelslikeC.ceil()}°',
                         textAlign: TextAlign.left,
                         style: GoogleFonts.openSans(
                             fontSize: 10, color: Colors.white)),
@@ -103,16 +97,15 @@ class _FutureOpenBarState extends State<FutureOpenBar> {
                 ),
               Align(
                 alignment: Alignment.centerRight,
-                child: clouds('https:${widget.data['icon']!}',widget.data['description']!),
-                // Column(
-                //   mainAxisSize: MainAxisSize.min,
-                //   children: [
-                //     Image.asset('assets/home/cloud and sun 1.png'),
-                //     Text('${widget.data['description']}',
-                //         style: GoogleFonts.openSans(
-                //             fontSize: 12, color: Colors.white)),
-                //   ],
-                // ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Image.network('https:${widget.data.current.condition.icon}'),
+                    Text(widget.data.current.condition.text,
+                        style: GoogleFonts.openSans(
+                            fontSize: 12, color: Colors.white)),
+                  ],
+                ),
               ),
               Align(
                 alignment: Alignment.bottomRight,
@@ -121,9 +114,9 @@ class _FutureOpenBarState extends State<FutureOpenBar> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text('Day ${widget.data['temp_max']}°',
+                    Text('Day ${widget.data.forecast.forecastday[0].day.maxtempC.ceil()}°',
                         style: const TextStyle(color: Colors.white)),
-                    Text('Night ${widget.data['temp_min']}°',
+                    Text('Night ${widget.data.forecast.forecastday[0].day.mintempC.ceil()}°',
                         style: const TextStyle(color: Colors.white))
                   ],
                 ),

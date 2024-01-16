@@ -15,6 +15,7 @@ abstract class Condition with _$Condition {
   )
   factory Condition({
     required String icon,
+    required String text,
   }) = _Condition;
 
   factory Condition.fromJson(Map<String, dynamic> json) => _$ConditionFromJson(json);

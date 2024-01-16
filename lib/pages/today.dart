@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
-import 'package:weather1/Pages/Tuday/small_widget.dart';
-import 'package:weather1/data/http_openweathermap.dart';
-import 'package:weather1/model/json_api.dart';
-import '../data/http_weatherapi.dart';
-import '../json_weatherapi_forecast/json_forecast.dart';
-import 'Tuday/big_widget.dart';
+import 'package:weather1/pages/today/small_widget.dart';
+import 'package:weather1/pages/today/big_widget.dart';
+import 'package:weather1/data/http_weatherapi.dart';
+import 'package:weather1/json_weatherapi_forecast/json_forecast.dart';
 
-class PageTuday extends StatelessWidget {
-  PageTuday({super.key});
+class PageToday extends StatelessWidget {
+  PageToday({super.key});
   final HttpWeatherApi wheather = HttpWeatherApi();
   static DateTime now = DateTime.now();
   static DateTime nowTime = DateTime(
@@ -30,8 +27,8 @@ class PageTuday extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 12.0),
               child: FutureBuilder(
-                future: wheather.getTemp(),
-                builder: (BuildContext context, AsyncSnapshot<Map<String,String>> snapshot) {
+                future: wheather.getData(),
+                builder: (BuildContext context, AsyncSnapshot<JsonForecast> snapshot) {
                   if (snapshot.hasError) return const Center(child: Text('error'));
                   if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
                   else {
@@ -39,10 +36,10 @@ class PageTuday extends StatelessWidget {
                     String txt2 = 'load';
                     String txt3 = 'load';
                     if (snapshot.hasData) {
-                      Map<String, String> data = snapshot.data!;
-                      txt1 = data['wind']!;
-                      txt2 = (double.parse(data['wind']!) / 10).toStringAsFixed(2);
-                      txt3 = data['rain']!;
+                      JsonForecast json = snapshot.data!;
+                      txt1 = json.current.windKph.toString();
+                      txt2 = (json.current.windKph / 10).toStringAsFixed(2);
+                      txt3 = '0';
                     }
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,8 +61,8 @@ class PageTuday extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: FutureBuilder(
-                future: wheather.getTemp(),
-                builder: (BuildContext context, AsyncSnapshot<Map<String,String>> snapshot) {
+                future: wheather.getData(),
+                builder: (BuildContext context, AsyncSnapshot<JsonForecast> snapshot) {
                   if (snapshot.hasError) return const Center(child: Text('error'));
                   if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
                   else {
@@ -73,10 +70,10 @@ class PageTuday extends StatelessWidget {
                     String txt2 = 'load';
                     String txt3 = 'load';
                     if (snapshot.hasData) {
-                      Map<String, String> data = snapshot.data!;
-                      txt1 = data['pressure_mb']!;
-                      txt2 = data['pressure_in']!;
-                      txt3 = data['snow']!;
+                      JsonForecast json = snapshot.data!;
+                      txt1 = '${json.current.pressureMb}';
+                      txt2 = '${json.current.pressureIn}';
+                      txt3 = '0';
                     }
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,32 +95,8 @@ class PageTuday extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(bottom: 16),
               child: BigWidget('Group 21.png', 'Hourly forecast', 150,
-                  // widgetData:FutureBuilder(
-                  //   future: wheather.getTemp4(nowUnix),
-                  //   builder: (BuildContext context, AsyncSnapshot<Map<String, String>> snapshot) {
-                  //     if (snapshot.hasError) return const Center(child: Text('error'));
-                  //     if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
-                  //     else {
-                  //       Map<String, String> data = snapshot.data!;
-                  //       return Row(
-                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //         children: [
-                  //           for (int i = 0; i<7;i++)
-                  //           Column(
-                  //             mainAxisSize: MainAxisSize.min,
-                  //             children: [
-                  //               Text(DateFormat('HH').format(now.add(Duration(hours: i)))),
-                  //               Image.network('http:${data['i$i']}'),
-                  //               Text('${data['c$i']}°'),
-                  //             ],
-                  //           )
-                  //         ],
-                  //       );
-                  //     }
-                  //   },
-                  // ),
                 widgetData:FutureBuilder(
-                  future: wheather.getData2(),
+                  future: wheather.getData(),
                   builder: (BuildContext context, AsyncSnapshot<JsonForecast> snapshot) {
                     if (snapshot.hasError) return const Center(child: Text('error'));
                     if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
@@ -148,24 +121,11 @@ class PageTuday extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 16),
               child: BigWidget('Group 32.png', 'Day forecast', 219,
                   widgetData:
-                  // Row()
-                  FutureBuilder(
-                      future: wheather.getData(),
-                      builder:  (BuildContext context, AsyncSnapshot<JsonApi> snapshot, ) {
-                        if (snapshot.hasError)
-                          return const Center(child: Text('error'));
-                        if (!snapshot.hasData)
-                          return const Center(child: CircularProgressIndicator());
-                        else {
-                          final json = snapshot.data!;
-                          return Text('${json.current.tempC}');
-                        }
-                      },
-                  ),
+                  Row()
               ),
             ),
             const Padding(
@@ -176,8 +136,8 @@ class PageTuday extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: FutureBuilder(
-                  future: wheather.getTemp2(),
-                  builder: (BuildContext context, AsyncSnapshot<Map<String,String>> snapshot) {
+                  future: wheather.getData(),
+                  builder: (BuildContext context, AsyncSnapshot<JsonForecast> snapshot) {
                     if (snapshot.hasError) return const Center(child: Text('error'));
                     if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
                     else {
@@ -185,9 +145,9 @@ class PageTuday extends StatelessWidget {
                       String txt2 = 'load';
                       String txt3 = 'load';
                       String txt4 = 'load';
-                      Map<String, String> data = snapshot.data!;
+                      JsonForecast json = snapshot.data!;
                       DateTime currentTime = DateTime.now();
-                      DateTime sunrise = DateFormat('hh:mm a').parse(data['sunrise']!);
+                      DateTime sunrise = DateFormat('hh:mm a').parse(json.forecast.forecastday[0].astro.sunrise);
                       DateTime sunriseTime = DateTime(
                         currentTime.year,
                         currentTime.month,
@@ -195,7 +155,7 @@ class PageTuday extends StatelessWidget {
                         sunrise.hour,
                         sunrise.minute,
                       );
-                      DateTime sunset = DateFormat('hh:mm a').parse(data['sunset']!);
+                      DateTime sunset = DateFormat('hh:mm a').parse(json.forecast.forecastday[0].astro.sunset);
                       DateTime sunsetTime = DateTime(
                         currentTime.year,
                         currentTime.month,

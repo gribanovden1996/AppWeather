@@ -5,12 +5,13 @@ import 'package:weather1/Pages/Home/future_opened_bar.dart';
 import 'package:weather1/data/http_openweathermap.dart';
 import 'package:weather1/data/http_weatherapi.dart';
 
+import '../../json_weatherapi_forecast/json_forecast.dart';
+
 class OpenedAppBar extends StatelessWidget {
   const OpenedAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Http_openweathermap wheather = context.read();
     HttpWeatherApi wheather = context.read();
     return Stack(
       children: [
@@ -31,13 +32,13 @@ class OpenedAppBar extends StatelessWidget {
           ),
         ),
         FutureBuilder(
-          future: wheather.getTemp(),
-          builder: (BuildContext context, AsyncSnapshot<Map<String,String>> snapshot) {
+          future: wheather.getData(),
+          builder: (BuildContext context, AsyncSnapshot<JsonForecast> snapshot) {
             if (snapshot.hasError) return const Center(child: Text('error'));
             if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
             else {
-              Map<String, String> data = snapshot.data!;
-              return FutureOpenBar(data: data);
+              JsonForecast json = snapshot.data!;
+              return FutureOpenBar(json);
             }
           }
         ),

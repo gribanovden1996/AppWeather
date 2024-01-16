@@ -71,16 +71,11 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
   String page = "";
 
-  //Button a = const Button();
-
   Widget _buildPageWidget() {
     switch (page) {
-      case "PageTomorrow":
-        return PageTuday();
-      case "Page_10_days":
-        return const Page_10_days();
-      default:
-        return PageTuday();
+      case "PageTomorrow": return PageToday();
+      case "Page_10_days": return const Page_10_days();
+      default: return PageToday();
     }
   }
 

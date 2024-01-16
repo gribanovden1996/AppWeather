@@ -21,6 +21,7 @@ Condition _$ConditionFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Condition {
   String get icon => throw _privateConstructorUsedError;
+  String get text => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -33,7 +34,7 @@ abstract class $ConditionCopyWith<$Res> {
   factory $ConditionCopyWith(Condition value, $Res Function(Condition) then) =
       _$ConditionCopyWithImpl<$Res, Condition>;
   @useResult
-  $Res call({String icon});
+  $Res call({String icon, String text});
 }
 
 /// @nodoc
@@ -50,11 +51,16 @@ class _$ConditionCopyWithImpl<$Res, $Val extends Condition>
   @override
   $Res call({
     Object? icon = null,
+    Object? text = null,
   }) {
     return _then(_value.copyWith(
       icon: null == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
+              as String,
+      text: null == text
+          ? _value.text
+          : text // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -68,7 +74,7 @@ abstract class _$$ConditionImplCopyWith<$Res>
       __$$ConditionImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String icon});
+  $Res call({String icon, String text});
 }
 
 /// @nodoc
@@ -83,11 +89,16 @@ class __$$ConditionImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? icon = null,
+    Object? text = null,
   }) {
     return _then(_$ConditionImpl(
       icon: null == icon
           ? _value.icon
           : icon // ignore: cast_nullable_to_non_nullable
+              as String,
+      text: null == text
+          ? _value.text
+          : text // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -97,17 +108,19 @@ class __$$ConditionImplCopyWithImpl<$Res>
 
 @JsonSerializable(fieldRename: FieldRename.snake, createToJson: true)
 class _$ConditionImpl with DiagnosticableTreeMixin implements _Condition {
-  _$ConditionImpl({required this.icon});
+  _$ConditionImpl({required this.icon, required this.text});
 
   factory _$ConditionImpl.fromJson(Map<String, dynamic> json) =>
       _$$ConditionImplFromJson(json);
 
   @override
   final String icon;
+  @override
+  final String text;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Condition(icon: $icon)';
+    return 'Condition(icon: $icon, text: $text)';
   }
 
   @override
@@ -115,7 +128,8 @@ class _$ConditionImpl with DiagnosticableTreeMixin implements _Condition {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Condition'))
-      ..add(DiagnosticsProperty('icon', icon));
+      ..add(DiagnosticsProperty('icon', icon))
+      ..add(DiagnosticsProperty('text', text));
   }
 
   @override
@@ -123,12 +137,13 @@ class _$ConditionImpl with DiagnosticableTreeMixin implements _Condition {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ConditionImpl &&
-            (identical(other.icon, icon) || other.icon == icon));
+            (identical(other.icon, icon) || other.icon == icon) &&
+            (identical(other.text, text) || other.text == text));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, icon);
+  int get hashCode => Object.hash(runtimeType, icon, text);
 
   @JsonKey(ignore: true)
   @override
@@ -145,13 +160,16 @@ class _$ConditionImpl with DiagnosticableTreeMixin implements _Condition {
 }
 
 abstract class _Condition implements Condition {
-  factory _Condition({required final String icon}) = _$ConditionImpl;
+  factory _Condition({required final String icon, required final String text}) =
+      _$ConditionImpl;
 
   factory _Condition.fromJson(Map<String, dynamic> json) =
       _$ConditionImpl.fromJson;
 
   @override
   String get icon;
+  @override
+  String get text;
   @override
   @JsonKey(ignore: true)
   _$$ConditionImplCopyWith<_$ConditionImpl> get copyWith =>
