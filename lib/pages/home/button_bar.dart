@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import '../home.dart';
+import 'package:weather1/pages/home.dart';
 
 class Button extends StatefulWidget {
-  const Button({super.key, required this.changePage});
+  const Button(this.changePage,{super.key});
   final ValueSetter<String> changePage;
   @override
   State<Button> createState() => ButtonState();
 }
 
 class ButtonState extends State<Button> {
-  HomeState homeState = HomeState();
+  final homeState = HomeState();
   late Map<String, bool> isButtonPressed= {
     'Today': false,
     'Tomorrow': true,

@@ -1,32 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather1/Pages/Home/future_closed_bar.dart';
-import 'package:weather1/data/http_openweathermap.dart';
 import 'package:weather1/data/http_weatherapi.dart';
-
-import '../../json_weatherapi_forecast/json_forecast.dart';
+import 'package:weather1/json_weatherapi_forecast/json_forecast.dart';
 
 class ClosedAppBar extends StatelessWidget {
-  const ClosedAppBar({super.key});
+  final JsonForecast json;
+  const ClosedAppBar(this.json,{super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Http_openweathermap wheather = context.read();
     HttpWeatherApi wheather = context.read();
     return
       Container(
           color: const Color.fromARGB(255, 226, 211, 250),
-          child: FutureBuilder(
-              future: wheather.getData(),
-              builder: (BuildContext context, AsyncSnapshot<JsonForecast> snapshot) {
-                if (!snapshot.hasData) {
-                  return const CircularProgressIndicator();
-                }
-                else {
-                  JsonForecast json = snapshot.data!;
-                  return FutureCloseBar(json);
-                }
-              }
+          child: SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 13),
+                      child: Stack(
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('${json.location.region}, ${json.location.country}'),
+                              IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.search)),
+                            ],
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                                  textBaseline: TextBaseline.alphabetic,
+                                  children: [
+                                    Text('${json.current.tempC.ceil()}°',
+                                        style: const TextStyle(fontSize: 50)),
+                                    Text('Feels like ${json.current.feelslikeC.ceil()}°'),
+                                  ],
+                                ),
+                                Transform.scale(
+                                    scale: 0.5,
+                                    child: Image.network('http:${json.current.condition.icon}', fit: BoxFit.contain)
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                )
+              ],
+            ),
           ),
       );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather1/json_weatherapi_forecast/json_forecast.dart';
 import 'package:weather1/pages/today/small_widget.dart';
 
 import '10_day/day_widget.dart';
@@ -7,7 +8,8 @@ import '10_day/day_widget.dart';
 
 
 class Page_10_days extends StatelessWidget {
-  const Page_10_days({super.key});
+  final JsonForecast json;
+  const Page_10_days(this.json, {super.key});
 
   @override
   Widget build(BuildContext context) =>

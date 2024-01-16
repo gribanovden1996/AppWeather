@@ -20,9 +20,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) =>
-    //Provider<Http_openweathermap>(
     Provider<HttpWeatherApi>(
-      // create: (BuildContext context) { return Http_openweathermap(); },
       create: (BuildContext context) { return HttpWeatherApi(); },
       child:
         MaterialApp(

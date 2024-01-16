@@ -1,19 +1,21 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:weather1/Pages/Home/closed_app_bar.dart';
-import 'package:weather1/Pages/Home/opened_app_bar.dart';
+import 'package:weather1/pages/Home/closed_app_bar.dart';
+import 'package:weather1/pages/Home/opened_app_bar.dart';
+import 'package:weather1/data/http_weatherapi.dart';
 
+import '../json_weatherapi_forecast/json_forecast.dart';
 import '10_days.dart';
-import 'tomorrow.dart';
 import 'today.dart';
-import 'package:weather1/Pages/Home/button_bar.dart';
+import 'package:weather1/pages/Home/button_bar.dart';
 
 class CustomSliverPersistentHeaderDelegate
     extends SliverPersistentHeaderDelegate {
   double _maxExtent = 482.0;
   final _minExtent = 228.0;
   final ValueSetter<String> changePage;
+  final JsonForecast json;
 
   //Button _a = const Button();
 
@@ -31,25 +33,21 @@ class CustomSliverPersistentHeaderDelegate
               MediaQuery.of(context).size.width),
           child: Stack(
             children: [
-              const ClosedAppBar(),
+              ClosedAppBar(json),
               Opacity(
                   opacity: max((_maxExtent - shrinkOffset) - _minExtent, 0) /
                       (_maxExtent - _minExtent),
-                  child: const OpenedAppBar()),
+                  child: OpenedAppBar(json)),
             ],
           ),
         ),
-        Button(
-          changePage: changePage,
-        ),
+        Button(changePage),
       ],
     );
   }
 
   @override
   double get maxExtent => _maxExtent;
-
-  //get a => _a;
 
   @override
   double get minExtent => _minExtent;
@@ -58,7 +56,7 @@ class CustomSliverPersistentHeaderDelegate
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
       true;
 
-  CustomSliverPersistentHeaderDelegate({required this.changePage});
+  CustomSliverPersistentHeaderDelegate(this.changePage,this.json);
 }
 
 class Home extends StatefulWidget {
@@ -70,12 +68,12 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
   String page = "";
-
-  Widget _buildPageWidget() {
+  final weather = HttpWeatherApi();
+  Widget _buildPageWidget(JsonForecast json) {
     switch (page) {
-      case "PageTomorrow": return PageToday();
-      case "Page_10_days": return const Page_10_days();
-      default: return PageToday();
+      case "PageTomorrow": return PageToday(json);
+      case "Page_10_days": return Page_10_days(json);
+      default: return PageToday(json);
     }
   }
 
@@ -84,16 +82,29 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: const Color.fromARGB(255, 246, 237, 255),
-        body: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: [
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: CustomSliverPersistentHeaderDelegate(
-                  changePage: (String newPage) => setState(() => page = newPage)),
-            ),
-            SliverToBoxAdapter(child: _buildPageWidget())
-          ],
+        body: FutureBuilder(
+            future: weather.getData(),
+            builder: (BuildContext context, AsyncSnapshot<JsonForecast> snapshot) {
+              if (snapshot.hasError) return const Center(child: Text('error'));
+              if (!snapshot.hasData)
+                return const Center(child: CircularProgressIndicator());
+              else {
+                JsonForecast json = snapshot.data!;
+                return CustomScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  slivers: [
+                    SliverPersistentHeader(
+                      pinned: true,
+                      delegate:
+                      CustomSliverPersistentHeaderDelegate((String newPage) =>
+                              setState(() => page = newPage),json
+                      ),
+                    ),
+                    SliverToBoxAdapter(child: _buildPageWidget(json))
+                  ],
+                );
+              }
+            }
         ),
       );
 }
