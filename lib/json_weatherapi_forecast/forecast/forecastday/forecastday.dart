@@ -21,6 +21,7 @@ abstract class Forecastday with _$Forecastday {
     required List<Hour> hour,
     required Astro astro,
     required Day day,
+    required String date,
   }) = _Forecastday;
 
   factory Forecastday.fromJson(Map<String, dynamic> json) => _$ForecastdayFromJson(json);

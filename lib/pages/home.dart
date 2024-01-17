@@ -1,10 +1,12 @@
 import 'dart:math';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:weather1/pages/Home/closed_app_bar.dart';
 import 'package:weather1/pages/Home/opened_app_bar.dart';
 import 'package:weather1/data/http_weatherapi.dart';
 
+import '../data/retrofit.dart';
 import '../json_weatherapi_forecast/json_forecast.dart';
 import '10_days.dart';
 import 'today.dart';
@@ -68,7 +70,8 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
   String page = "";
-  final weather = HttpWeatherApi();
+  static final dio = Dio();
+  final weather = RestClient(dio);
   Widget _buildPageWidget(JsonForecast json) {
     switch (page) {
       case "PageTomorrow": return PageToday(json);

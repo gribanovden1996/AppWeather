@@ -23,6 +23,7 @@ mixin _$Forecastday {
   List<Hour> get hour => throw _privateConstructorUsedError;
   Astro get astro => throw _privateConstructorUsedError;
   Day get day => throw _privateConstructorUsedError;
+  String get date => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +37,7 @@ abstract class $ForecastdayCopyWith<$Res> {
           Forecastday value, $Res Function(Forecastday) then) =
       _$ForecastdayCopyWithImpl<$Res, Forecastday>;
   @useResult
-  $Res call({List<Hour> hour, Astro astro, Day day});
+  $Res call({List<Hour> hour, Astro astro, Day day, String date});
 
   $AstroCopyWith<$Res> get astro;
   $DayCopyWith<$Res> get day;
@@ -58,6 +59,7 @@ class _$ForecastdayCopyWithImpl<$Res, $Val extends Forecastday>
     Object? hour = null,
     Object? astro = null,
     Object? day = null,
+    Object? date = null,
   }) {
     return _then(_value.copyWith(
       hour: null == hour
@@ -72,6 +74,10 @@ class _$ForecastdayCopyWithImpl<$Res, $Val extends Forecastday>
           ? _value.day
           : day // ignore: cast_nullable_to_non_nullable
               as Day,
+      date: null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 
@@ -100,7 +106,7 @@ abstract class _$$ForecastdayImplCopyWith<$Res>
       __$$ForecastdayImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<Hour> hour, Astro astro, Day day});
+  $Res call({List<Hour> hour, Astro astro, Day day, String date});
 
   @override
   $AstroCopyWith<$Res> get astro;
@@ -122,6 +128,7 @@ class __$$ForecastdayImplCopyWithImpl<$Res>
     Object? hour = null,
     Object? astro = null,
     Object? day = null,
+    Object? date = null,
   }) {
     return _then(_$ForecastdayImpl(
       hour: null == hour
@@ -136,6 +143,10 @@ class __$$ForecastdayImplCopyWithImpl<$Res>
           ? _value.day
           : day // ignore: cast_nullable_to_non_nullable
               as Day,
+      date: null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -145,7 +156,10 @@ class __$$ForecastdayImplCopyWithImpl<$Res>
 @JsonSerializable(fieldRename: FieldRename.snake, createToJson: true)
 class _$ForecastdayImpl with DiagnosticableTreeMixin implements _Forecastday {
   _$ForecastdayImpl(
-      {required final List<Hour> hour, required this.astro, required this.day})
+      {required final List<Hour> hour,
+      required this.astro,
+      required this.day,
+      required this.date})
       : _hour = hour;
 
   factory _$ForecastdayImpl.fromJson(Map<String, dynamic> json) =>
@@ -163,10 +177,12 @@ class _$ForecastdayImpl with DiagnosticableTreeMixin implements _Forecastday {
   final Astro astro;
   @override
   final Day day;
+  @override
+  final String date;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Forecastday(hour: $hour, astro: $astro, day: $day)';
+    return 'Forecastday(hour: $hour, astro: $astro, day: $day, date: $date)';
   }
 
   @override
@@ -176,7 +192,8 @@ class _$ForecastdayImpl with DiagnosticableTreeMixin implements _Forecastday {
       ..add(DiagnosticsProperty('type', 'Forecastday'))
       ..add(DiagnosticsProperty('hour', hour))
       ..add(DiagnosticsProperty('astro', astro))
-      ..add(DiagnosticsProperty('day', day));
+      ..add(DiagnosticsProperty('day', day))
+      ..add(DiagnosticsProperty('date', date));
   }
 
   @override
@@ -186,13 +203,14 @@ class _$ForecastdayImpl with DiagnosticableTreeMixin implements _Forecastday {
             other is _$ForecastdayImpl &&
             const DeepCollectionEquality().equals(other._hour, _hour) &&
             (identical(other.astro, astro) || other.astro == astro) &&
-            (identical(other.day, day) || other.day == day));
+            (identical(other.day, day) || other.day == day) &&
+            (identical(other.date, date) || other.date == date));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_hour), astro, day);
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_hour), astro, day, date);
 
   @JsonKey(ignore: true)
   @override
@@ -212,7 +230,8 @@ abstract class _Forecastday implements Forecastday {
   factory _Forecastday(
       {required final List<Hour> hour,
       required final Astro astro,
-      required final Day day}) = _$ForecastdayImpl;
+      required final Day day,
+      required final String date}) = _$ForecastdayImpl;
 
   factory _Forecastday.fromJson(Map<String, dynamic> json) =
       _$ForecastdayImpl.fromJson;
@@ -223,6 +242,8 @@ abstract class _Forecastday implements Forecastday {
   Astro get astro;
   @override
   Day get day;
+  @override
+  String get date;
   @override
   @JsonKey(ignore: true)
   _$$ForecastdayImplCopyWith<_$ForecastdayImpl> get copyWith =>

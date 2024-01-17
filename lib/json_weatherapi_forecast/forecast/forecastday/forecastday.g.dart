@@ -13,6 +13,7 @@ _$ForecastdayImpl _$$ForecastdayImplFromJson(Map<String, dynamic> json) =>
           .toList(),
       astro: Astro.fromJson(json['astro'] as Map<String, dynamic>),
       day: Day.fromJson(json['day'] as Map<String, dynamic>),
+      date: json['date'] as String,
     );
 
 Map<String, dynamic> _$$ForecastdayImplToJson(_$ForecastdayImpl instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$$ForecastdayImplToJson(_$ForecastdayImpl instance) =>
       'hour': instance.hour,
       'astro': instance.astro,
       'day': instance.day,
+      'date': instance.date,
     };

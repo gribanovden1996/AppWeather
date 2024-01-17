@@ -24,12 +24,14 @@ dependencies:
   logger: ^2.0.2+1
   fl_chart: ^0.66.0
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
   build_runner: ^2.4.7
   json_serializable: ^6.7.1
+  retrofit_generator: ^8.0.6
 
 flutter:
   uses-material-design: true

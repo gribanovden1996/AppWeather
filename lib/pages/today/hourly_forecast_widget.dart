@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:weather1/json_weatherapi_forecast/json_forecast.dart';
 
-class ForecastHour extends StatelessWidget {
+class HourlyForecastWidget extends StatelessWidget {
   final JsonForecast json;
-  ForecastHour(this.json, {super.key});
+  HourlyForecastWidget(this.json, {super.key});
 
   static DateTime now = DateTime.now();
   static int nowUnix = DateTime(now.year,now.month,now.day,now.hour).millisecondsSinceEpoch ~/ 1000;

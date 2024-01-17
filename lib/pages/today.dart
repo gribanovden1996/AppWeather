@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:weather1/pages/today/forecast.dart';
-import 'package:weather1/pages/today/graf.dart';
+import 'package:weather1/pages/today/hourly_forecast_widget.dart';
+import 'package:weather1/pages/today/day_forecast_widget.dart';
 import 'package:weather1/pages/today/small_widget.dart';
 import 'package:weather1/pages/today/big_widget.dart';
 import 'package:weather1/json_weatherapi_forecast/json_forecast.dart';
@@ -125,16 +125,16 @@ class PageToday extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 16),
               child: BigWidget('Group 21.png', 'Hourly forecast', 150,
-                  widgetData: ForecastHour(json)),
+                  widgetData: HourlyForecastWidget(json)),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 16),
               child: BigWidget('Group 32.png', 'Day forecast', 219,
-                  widgetData: LineChartSample2(json)),
+                  widgetData: DayForecastWidget(json)),
             ),
             const Padding(
               padding: EdgeInsets.only(bottom: 16),
-              child: BigWidget('Group 33.png', 'Chance of rain', 213,
+              child: BigWidget('Group 33.png', 'Chance of precipitation', 213,
                   widgetData: Row()),
             ),
             Padding(
