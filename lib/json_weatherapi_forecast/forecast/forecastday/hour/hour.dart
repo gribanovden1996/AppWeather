@@ -19,6 +19,8 @@ abstract class Hour with _$Hour {
   factory Hour({
     required int timeEpoch,
     required double tempC,
+    required double chanceOfRain,
+    required double chanceOfSnow,
     required Condition condition,
   }) = _Hour;
 

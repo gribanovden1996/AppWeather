@@ -8,11 +8,9 @@ class HourlyForecastWidget extends StatelessWidget {
   static DateTime now = DateTime.now();
   static int nowUnix = DateTime(now.year,now.month,now.day,now.hour).millisecondsSinceEpoch ~/ 1000;
   late int k;
-  late int end;
   void _timeInit() {
     DateTime endOfDay = DateTime(now.year, now.month, now.day, 23, 59, 59);
     Duration timeUntilEndOfDay = endOfDay.difference(now);
-    end = timeUntilEndOfDay.inHours+1;
     for (int i=0;i<24;i++) {
       if (nowUnix==json.forecast.forecastday[0].hour[i].timeEpoch) {
         k=i;
@@ -20,7 +18,7 @@ class HourlyForecastWidget extends StatelessWidget {
       }
     }
   }
-  Column dayColumn(int i, String icon, int a) => Column(
+  Widget dayColumn(int i, String icon, int a) => Column(
     mainAxisSize: MainAxisSize.min,
     children: [
       Text('$i'),

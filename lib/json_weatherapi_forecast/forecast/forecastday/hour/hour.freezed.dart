@@ -22,6 +22,8 @@ Hour _$HourFromJson(Map<String, dynamic> json) {
 mixin _$Hour {
   int get timeEpoch => throw _privateConstructorUsedError;
   double get tempC => throw _privateConstructorUsedError;
+  double get chanceOfRain => throw _privateConstructorUsedError;
+  double get chanceOfSnow => throw _privateConstructorUsedError;
   Condition get condition => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -34,7 +36,12 @@ abstract class $HourCopyWith<$Res> {
   factory $HourCopyWith(Hour value, $Res Function(Hour) then) =
       _$HourCopyWithImpl<$Res, Hour>;
   @useResult
-  $Res call({int timeEpoch, double tempC, Condition condition});
+  $Res call(
+      {int timeEpoch,
+      double tempC,
+      double chanceOfRain,
+      double chanceOfSnow,
+      Condition condition});
 
   $ConditionCopyWith<$Res> get condition;
 }
@@ -54,6 +61,8 @@ class _$HourCopyWithImpl<$Res, $Val extends Hour>
   $Res call({
     Object? timeEpoch = null,
     Object? tempC = null,
+    Object? chanceOfRain = null,
+    Object? chanceOfSnow = null,
     Object? condition = null,
   }) {
     return _then(_value.copyWith(
@@ -64,6 +73,14 @@ class _$HourCopyWithImpl<$Res, $Val extends Hour>
       tempC: null == tempC
           ? _value.tempC
           : tempC // ignore: cast_nullable_to_non_nullable
+              as double,
+      chanceOfRain: null == chanceOfRain
+          ? _value.chanceOfRain
+          : chanceOfRain // ignore: cast_nullable_to_non_nullable
+              as double,
+      chanceOfSnow: null == chanceOfSnow
+          ? _value.chanceOfSnow
+          : chanceOfSnow // ignore: cast_nullable_to_non_nullable
               as double,
       condition: null == condition
           ? _value.condition
@@ -88,7 +105,12 @@ abstract class _$$HourImplCopyWith<$Res> implements $HourCopyWith<$Res> {
       __$$HourImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int timeEpoch, double tempC, Condition condition});
+  $Res call(
+      {int timeEpoch,
+      double tempC,
+      double chanceOfRain,
+      double chanceOfSnow,
+      Condition condition});
 
   @override
   $ConditionCopyWith<$Res> get condition;
@@ -106,6 +128,8 @@ class __$$HourImplCopyWithImpl<$Res>
   $Res call({
     Object? timeEpoch = null,
     Object? tempC = null,
+    Object? chanceOfRain = null,
+    Object? chanceOfSnow = null,
     Object? condition = null,
   }) {
     return _then(_$HourImpl(
@@ -116,6 +140,14 @@ class __$$HourImplCopyWithImpl<$Res>
       tempC: null == tempC
           ? _value.tempC
           : tempC // ignore: cast_nullable_to_non_nullable
+              as double,
+      chanceOfRain: null == chanceOfRain
+          ? _value.chanceOfRain
+          : chanceOfRain // ignore: cast_nullable_to_non_nullable
+              as double,
+      chanceOfSnow: null == chanceOfSnow
+          ? _value.chanceOfSnow
+          : chanceOfSnow // ignore: cast_nullable_to_non_nullable
               as double,
       condition: null == condition
           ? _value.condition
@@ -130,7 +162,11 @@ class __$$HourImplCopyWithImpl<$Res>
 @JsonSerializable(fieldRename: FieldRename.snake, createToJson: true)
 class _$HourImpl with DiagnosticableTreeMixin implements _Hour {
   _$HourImpl(
-      {required this.timeEpoch, required this.tempC, required this.condition});
+      {required this.timeEpoch,
+      required this.tempC,
+      required this.chanceOfRain,
+      required this.chanceOfSnow,
+      required this.condition});
 
   factory _$HourImpl.fromJson(Map<String, dynamic> json) =>
       _$$HourImplFromJson(json);
@@ -140,11 +176,15 @@ class _$HourImpl with DiagnosticableTreeMixin implements _Hour {
   @override
   final double tempC;
   @override
+  final double chanceOfRain;
+  @override
+  final double chanceOfSnow;
+  @override
   final Condition condition;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Hour(timeEpoch: $timeEpoch, tempC: $tempC, condition: $condition)';
+    return 'Hour(timeEpoch: $timeEpoch, tempC: $tempC, chanceOfRain: $chanceOfRain, chanceOfSnow: $chanceOfSnow, condition: $condition)';
   }
 
   @override
@@ -154,6 +194,8 @@ class _$HourImpl with DiagnosticableTreeMixin implements _Hour {
       ..add(DiagnosticsProperty('type', 'Hour'))
       ..add(DiagnosticsProperty('timeEpoch', timeEpoch))
       ..add(DiagnosticsProperty('tempC', tempC))
+      ..add(DiagnosticsProperty('chanceOfRain', chanceOfRain))
+      ..add(DiagnosticsProperty('chanceOfSnow', chanceOfSnow))
       ..add(DiagnosticsProperty('condition', condition));
   }
 
@@ -165,13 +207,18 @@ class _$HourImpl with DiagnosticableTreeMixin implements _Hour {
             (identical(other.timeEpoch, timeEpoch) ||
                 other.timeEpoch == timeEpoch) &&
             (identical(other.tempC, tempC) || other.tempC == tempC) &&
+            (identical(other.chanceOfRain, chanceOfRain) ||
+                other.chanceOfRain == chanceOfRain) &&
+            (identical(other.chanceOfSnow, chanceOfSnow) ||
+                other.chanceOfSnow == chanceOfSnow) &&
             (identical(other.condition, condition) ||
                 other.condition == condition));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, timeEpoch, tempC, condition);
+  int get hashCode => Object.hash(
+      runtimeType, timeEpoch, tempC, chanceOfRain, chanceOfSnow, condition);
 
   @JsonKey(ignore: true)
   @override
@@ -191,6 +238,8 @@ abstract class _Hour implements Hour {
   factory _Hour(
       {required final int timeEpoch,
       required final double tempC,
+      required final double chanceOfRain,
+      required final double chanceOfSnow,
       required final Condition condition}) = _$HourImpl;
 
   factory _Hour.fromJson(Map<String, dynamic> json) = _$HourImpl.fromJson;
@@ -199,6 +248,10 @@ abstract class _Hour implements Hour {
   int get timeEpoch;
   @override
   double get tempC;
+  @override
+  double get chanceOfRain;
+  @override
+  double get chanceOfSnow;
   @override
   Condition get condition;
   @override

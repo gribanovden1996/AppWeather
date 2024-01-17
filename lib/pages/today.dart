@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:weather1/pages/today/chance_of_precipitation_widget.dart';
 import 'package:weather1/pages/today/hourly_forecast_widget.dart';
 import 'package:weather1/pages/today/day_forecast_widget.dart';
 import 'package:weather1/pages/today/small_widget.dart';
@@ -132,10 +133,10 @@ class PageToday extends StatelessWidget {
               child: BigWidget('Group 32.png', 'Day forecast', 219,
                   widgetData: DayForecastWidget(json)),
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(bottom: 16),
               child: BigWidget('Group 33.png', 'Chance of precipitation', 213,
-                  widgetData: Row()),
+                  widgetData: BarChartSample1(json)),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),

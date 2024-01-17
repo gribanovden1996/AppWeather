@@ -18,6 +18,8 @@ abstract class Day with _$Day {
     required double maxtempC,
     required double mintempC,
     required double avgtempC,
+    required double dailyChanceOfRain,
+    required double dailyChanceOfSnow,
   }) = _Day;
 
   factory Day.fromJson(Map<String, dynamic> json) => _$DayFromJson(json);
