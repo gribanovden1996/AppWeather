@@ -64,7 +64,12 @@ class OpenedAppBar extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Image.network('https:${json.current.condition.icon}'),
+                      SizedBox(
+                        width: 107,
+                        height: 107,
+                        child: Image.network('https:${json.current.condition.icon}',
+                          fit: BoxFit.cover,
+                        ),),
                       Text(json.current.condition.text,
                           style: GoogleFonts.openSans(
                               fontSize: 12, color: Colors.white)),],),),

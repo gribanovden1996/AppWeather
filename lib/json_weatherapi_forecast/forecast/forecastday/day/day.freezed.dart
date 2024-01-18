@@ -25,6 +25,7 @@ mixin _$Day {
   double get avgtempC => throw _privateConstructorUsedError;
   double get dailyChanceOfRain => throw _privateConstructorUsedError;
   double get dailyChanceOfSnow => throw _privateConstructorUsedError;
+  DayCondition get condition => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +42,10 @@ abstract class $DayCopyWith<$Res> {
       double mintempC,
       double avgtempC,
       double dailyChanceOfRain,
-      double dailyChanceOfSnow});
+      double dailyChanceOfSnow,
+      DayCondition condition});
+
+  $DayConditionCopyWith<$Res> get condition;
 }
 
 /// @nodoc
@@ -61,6 +65,7 @@ class _$DayCopyWithImpl<$Res, $Val extends Day> implements $DayCopyWith<$Res> {
     Object? avgtempC = null,
     Object? dailyChanceOfRain = null,
     Object? dailyChanceOfSnow = null,
+    Object? condition = null,
   }) {
     return _then(_value.copyWith(
       maxtempC: null == maxtempC
@@ -83,7 +88,19 @@ class _$DayCopyWithImpl<$Res, $Val extends Day> implements $DayCopyWith<$Res> {
           ? _value.dailyChanceOfSnow
           : dailyChanceOfSnow // ignore: cast_nullable_to_non_nullable
               as double,
+      condition: null == condition
+          ? _value.condition
+          : condition // ignore: cast_nullable_to_non_nullable
+              as DayCondition,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $DayConditionCopyWith<$Res> get condition {
+    return $DayConditionCopyWith<$Res>(_value.condition, (value) {
+      return _then(_value.copyWith(condition: value) as $Val);
+    });
   }
 }
 
@@ -98,7 +115,11 @@ abstract class _$$DayImplCopyWith<$Res> implements $DayCopyWith<$Res> {
       double mintempC,
       double avgtempC,
       double dailyChanceOfRain,
-      double dailyChanceOfSnow});
+      double dailyChanceOfSnow,
+      DayCondition condition});
+
+  @override
+  $DayConditionCopyWith<$Res> get condition;
 }
 
 /// @nodoc
@@ -115,6 +136,7 @@ class __$$DayImplCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res, _$DayImpl>
     Object? avgtempC = null,
     Object? dailyChanceOfRain = null,
     Object? dailyChanceOfSnow = null,
+    Object? condition = null,
   }) {
     return _then(_$DayImpl(
       maxtempC: null == maxtempC
@@ -137,6 +159,10 @@ class __$$DayImplCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res, _$DayImpl>
           ? _value.dailyChanceOfSnow
           : dailyChanceOfSnow // ignore: cast_nullable_to_non_nullable
               as double,
+      condition: null == condition
+          ? _value.condition
+          : condition // ignore: cast_nullable_to_non_nullable
+              as DayCondition,
     ));
   }
 }
@@ -150,7 +176,8 @@ class _$DayImpl with DiagnosticableTreeMixin implements _Day {
       required this.mintempC,
       required this.avgtempC,
       required this.dailyChanceOfRain,
-      required this.dailyChanceOfSnow});
+      required this.dailyChanceOfSnow,
+      required this.condition});
 
   factory _$DayImpl.fromJson(Map<String, dynamic> json) =>
       _$$DayImplFromJson(json);
@@ -165,10 +192,12 @@ class _$DayImpl with DiagnosticableTreeMixin implements _Day {
   final double dailyChanceOfRain;
   @override
   final double dailyChanceOfSnow;
+  @override
+  final DayCondition condition;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Day(maxtempC: $maxtempC, mintempC: $mintempC, avgtempC: $avgtempC, dailyChanceOfRain: $dailyChanceOfRain, dailyChanceOfSnow: $dailyChanceOfSnow)';
+    return 'Day(maxtempC: $maxtempC, mintempC: $mintempC, avgtempC: $avgtempC, dailyChanceOfRain: $dailyChanceOfRain, dailyChanceOfSnow: $dailyChanceOfSnow, condition: $condition)';
   }
 
   @override
@@ -180,7 +209,8 @@ class _$DayImpl with DiagnosticableTreeMixin implements _Day {
       ..add(DiagnosticsProperty('mintempC', mintempC))
       ..add(DiagnosticsProperty('avgtempC', avgtempC))
       ..add(DiagnosticsProperty('dailyChanceOfRain', dailyChanceOfRain))
-      ..add(DiagnosticsProperty('dailyChanceOfSnow', dailyChanceOfSnow));
+      ..add(DiagnosticsProperty('dailyChanceOfSnow', dailyChanceOfSnow))
+      ..add(DiagnosticsProperty('condition', condition));
   }
 
   @override
@@ -197,13 +227,15 @@ class _$DayImpl with DiagnosticableTreeMixin implements _Day {
             (identical(other.dailyChanceOfRain, dailyChanceOfRain) ||
                 other.dailyChanceOfRain == dailyChanceOfRain) &&
             (identical(other.dailyChanceOfSnow, dailyChanceOfSnow) ||
-                other.dailyChanceOfSnow == dailyChanceOfSnow));
+                other.dailyChanceOfSnow == dailyChanceOfSnow) &&
+            (identical(other.condition, condition) ||
+                other.condition == condition));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, maxtempC, mintempC, avgtempC,
-      dailyChanceOfRain, dailyChanceOfSnow);
+      dailyChanceOfRain, dailyChanceOfSnow, condition);
 
   @JsonKey(ignore: true)
   @override
@@ -225,7 +257,8 @@ abstract class _Day implements Day {
       required final double mintempC,
       required final double avgtempC,
       required final double dailyChanceOfRain,
-      required final double dailyChanceOfSnow}) = _$DayImpl;
+      required final double dailyChanceOfSnow,
+      required final DayCondition condition}) = _$DayImpl;
 
   factory _Day.fromJson(Map<String, dynamic> json) = _$DayImpl.fromJson;
 
@@ -239,6 +272,8 @@ abstract class _Day implements Day {
   double get dailyChanceOfRain;
   @override
   double get dailyChanceOfSnow;
+  @override
+  DayCondition get condition;
   @override
   @JsonKey(ignore: true)
   _$$DayImplCopyWith<_$DayImpl> get copyWith =>

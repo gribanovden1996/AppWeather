@@ -22,6 +22,7 @@ abstract class Hour with _$Hour {
     required double chanceOfRain,
     required double chanceOfSnow,
     required Condition condition,
+    required double uv,
   }) = _Hour;
 
   factory Hour.fromJson(Map<String, dynamic> json) => _$HourFromJson(json);

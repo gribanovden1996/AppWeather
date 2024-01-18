@@ -1,27 +1,29 @@
 import 'dart:async';
-import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather1/data/http_openweathermap.dart';
-import 'package:weather1/data/http_weatherapi.dart';
 
 import 'data/navig.dart';
+import 'data/retrofit.dart';
 import 'logger.dart';
 
 
-void main() {
-  runZonedGuarded(() => runApp(const MyApp()), (error, stack) {
-    logger.e(error, stackTrace: stack);
-  });
-}
+void main() =>
+    runZonedGuarded(
+            () => runApp(const MyApp()),
+            (error, stack) => logger.e(
+                error,
+                stackTrace: stack)
+    );
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+  static final dio = Dio();
   @override
   Widget build(BuildContext context) =>
-    Provider<HttpWeatherApi>(
-      create: (BuildContext context) { return HttpWeatherApi(); },
+    Provider<RestClient>(
+      create: (BuildContext context) { return RestClient(dio); },
       child:
         MaterialApp(
           title: 'Weather',

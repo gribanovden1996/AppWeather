@@ -12,6 +12,8 @@ _$DayImpl _$$DayImplFromJson(Map<String, dynamic> json) => _$DayImpl(
       avgtempC: (json['avgtemp_c'] as num).toDouble(),
       dailyChanceOfRain: (json['daily_chance_of_rain'] as num).toDouble(),
       dailyChanceOfSnow: (json['daily_chance_of_snow'] as num).toDouble(),
+      condition:
+          DayCondition.fromJson(json['condition'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$DayImplToJson(_$DayImpl instance) => <String, dynamic>{
@@ -20,4 +22,5 @@ Map<String, dynamic> _$$DayImplToJson(_$DayImpl instance) => <String, dynamic>{
       'avgtemp_c': instance.avgtempC,
       'daily_chance_of_rain': instance.dailyChanceOfRain,
       'daily_chance_of_snow': instance.dailyChanceOfSnow,
+      'condition': instance.condition,
     };

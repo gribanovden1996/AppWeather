@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:weather1/data/http_weatherapi.dart';
 import 'package:weather1/json_weatherapi_forecast/json_forecast.dart';
 
 class ClosedAppBar extends StatelessWidget {
@@ -9,7 +7,6 @@ class ClosedAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HttpWeatherApi wheather = context.read();
     return
       Container(
           color: const Color.fromARGB(255, 226, 211, 250),
@@ -47,10 +44,12 @@ class ClosedAppBar extends StatelessWidget {
                                     Text('Feels like ${json.current.feelslikeC.ceil()}°'),
                                   ],
                                 ),
-                                Transform.scale(
-                                    scale: 0.5,
-                                    child: Image.network('http:${json.current.condition.icon}', fit: BoxFit.contain)
-                                ),
+                                SizedBox(
+                                  width: 60,
+                                  height: 60,
+                                  child: Image.network('http:${json.current.condition.icon}',
+                                      fit: BoxFit.cover,
+                                  ),),
                               ],
                             ),
                           ),

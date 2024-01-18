@@ -36,7 +36,7 @@ class BarChartSample1 extends StatelessWidget {
       SizedBox(width: 25,
         child: Align(
             alignment: Alignment.centerRight,
-            child: Text('$txt1'))),
+            child: Text('$txt1ч'))),
       const SizedBox(width: 20,),
       SizedBox(
         width: widthX-180,
@@ -61,10 +61,10 @@ class BarChartSample1 extends StatelessWidget {
       ),
       const SizedBox(width: 20,),
       SizedBox(
-          width: 30,
+          width: 35,
           child: Align(
               alignment: Alignment.centerRight,
-              child: Text('$chance%'))),
+              child: Text('${chance.ceil()}%'))),
     ],
   );
 
@@ -73,21 +73,24 @@ class BarChartSample1 extends StatelessWidget {
     _timeInit();
     double widthX = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.only(top: 60),
+      padding: const EdgeInsets.only(top: 40),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           for (int i=0; i<4;i++,k++)
-            if (k<24 ) row(
-                widthX,
-                k,
-                max(forecast.forecast.forecastday[0].hour[k].chanceOfSnow,forecast.forecast.forecastday[0].hour[k].chanceOfRain),
-            )
-            else row(
+            (k<24 )
+              ?row(
+                  widthX,
+                  k,
+                  max(forecast.forecast.forecastday[0].hour[k].chanceOfSnow,
+                      forecast.forecast.forecastday[0].hour[k].chanceOfRain),
+              )
+              :row(
                 widthX,
                 k-24,
-                max(forecast.forecast.forecastday[1].hour[k-24].chanceOfSnow,forecast.forecast.forecastday[1].hour[k-24].chanceOfRain)
-            ),
+                max(forecast.forecast.forecastday[1].hour[k-24].chanceOfSnow,
+                    forecast.forecast.forecastday[1].hour[k-24].chanceOfRain)
+              ),
         ],
       ),
     );

@@ -1,17 +1,14 @@
 import 'dart:core';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class day_widget extends StatelessWidget {
-  const day_widget (this.img,  this.txt1, this.txt2, this.txt3, this.txt4, {super.key});
+class DayWidget extends StatelessWidget {
+  const DayWidget (this.img,  this.day, this.text, this.tempMax, this.tempMin, {super.key});
   final String img;
-  final String txt1;
-  final String txt2;
-  final String txt3;
-  final String txt4;
-  static String path = 'assets/10_day/';
+  final String day;
+  final String text;
+  final double tempMax;
+  final double tempMin;
 
   @override
   Widget build(BuildContext context) =>
@@ -32,9 +29,9 @@ class day_widget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(txt1,
+                    Text(day,
                       style: GoogleFonts.openSans(fontSize: 16)),
-                    Text(txt2,
+                    Text(text,
                       style: GoogleFonts.openSans(fontSize: 16,
                         color: const Color.fromARGB(255, 73, 70, 73))),
                   ],
@@ -55,17 +52,17 @@ class day_widget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(txt3,
+                          Text('${tempMax.ceil()}°',
                               style: GoogleFonts.openSans(fontSize: 16,
                                   color: const Color.fromARGB(255, 46, 0, 78))),
-                          Text(txt4,
+                          Text('${tempMin.ceil()}°',
                               style: GoogleFonts.openSans(fontSize: 16,
                                   color: const Color.fromARGB(255, 46, 0, 78))),
                         ],
                       ),
                     ),
                     const Divider(height: 35,thickness: 4,color: Colors.black,endIndent: 12),
-                    Image.asset(path+img),
+                    Image.network('http:$img'),
                   ],
                 ),
               ),

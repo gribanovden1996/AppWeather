@@ -8,16 +8,15 @@ import 'package:weather1/pages/today/big_widget.dart';
 import 'package:weather1/json_weatherapi_forecast/json_forecast.dart';
 
 class PageToday extends StatelessWidget {
-  final JsonForecast json;
-
-  PageToday(this.json, {super.key});
+  final JsonForecast forecast;
+  PageToday(this.forecast, {super.key});
 
   static DateTime nowTime = DateTime.now();
-  static int nowUnix = nowTime.millisecondsSinceEpoch ~/ 1000;
   String txt1 = 'load';
   String txt2 = 'load';
   String txt3 = 'load';
   String txt4 = 'load';
+  late int k;
 
   void _timeInit() {
     DateTime sunriseTime = DateTime(
@@ -25,10 +24,10 @@ class PageToday extends StatelessWidget {
       nowTime.month,
       nowTime.day,
       DateFormat('hh:mm a')
-          .parse(json.forecast.forecastday[0].astro.sunrise)
+          .parse(forecast.forecast.forecastday[0].astro.sunrise)
           .hour,
       DateFormat('hh:mm a')
-          .parse(json.forecast.forecastday[0].astro.sunrise)
+          .parse(forecast.forecast.forecastday[0].astro.sunrise)
           .minute,
     );
     DateTime sunsetTime = DateTime(
@@ -36,26 +35,30 @@ class PageToday extends StatelessWidget {
       nowTime.month,
       nowTime.day,
       DateFormat('hh:mm a')
-          .parse(json.forecast.forecastday[0].astro.sunset)
+          .parse(forecast.forecast.forecastday[0].astro.sunset)
           .hour,
       DateFormat('hh:mm a')
-          .parse(json.forecast.forecastday[0].astro.sunset)
+          .parse(forecast.forecast.forecastday[0].astro.sunset)
           .minute,
     );
     txt1 = DateFormat('HH:mm').format(sunriseTime);
     txt3 = DateFormat('HH:mm').format(sunsetTime);
 
-    if (sunriseTime.isBefore(nowTime)) {
-      txt2 = '${nowTime.difference(sunriseTime).inHours % 24}ч назад';
-    } else {
-      txt2 = 'через ${(nowTime.difference(sunriseTime).inHours.abs())}ч';
-    }
+    (sunriseTime.isBefore(nowTime))
+        ? txt2 = '${nowTime.difference(sunriseTime).inHours}ч назад'
+        : txt2 = 'через ${(nowTime.difference(sunriseTime).inHours).abs()}ч';
 
-    if (sunsetTime.isBefore(nowTime)) {
-      txt4 = '${nowTime.difference(sunsetTime).inHours % 12}ч назад';
-    } else {
-      txt4 = 'через ${(nowTime.difference(sunsetTime).inHours).abs()}ч';
-    }
+    (sunsetTime.isBefore(nowTime))
+        ? txt4 = '${nowTime.difference(sunsetTime).inHours}ч назад'
+        : txt4 = 'через ${(nowTime.difference(sunsetTime).inHours).abs()}ч';
+
+    int nowUnix = DateTime(nowTime.year,nowTime.month,nowTime.day,nowTime.hour).millisecondsSinceEpoch ~/ 1000;
+      for (int i=0; i<24; i++) {
+        if (nowUnix==forecast.forecast.forecastday[0].hour[i].timeEpoch) {
+          k = i;
+          break;
+        }
+      }
   }
 
 
@@ -77,8 +80,8 @@ class PageToday extends StatelessWidget {
                   SmallWidget(
                     'Group1.png',
                     'Wind speed',
-                    '${json.current.windKph.ceil()} km/h',
-                    '${(json.current.windKph / 10).ceil()}km/h',
+                    '${forecast.current.windKph.ceil()} km/h',
+                    '${(forecast.current.windKph / 10).ceil()}km/h',
                     arrow: true,
                     img2: null,
                   ),
@@ -104,18 +107,18 @@ class PageToday extends StatelessWidget {
                   SmallWidget(
                     'Group2.png',
                     'Pressure',
-                    '${json.current.pressureMb.ceil()} hpa',
-                    '${json.current.pressureIn.ceil()} hpa',
+                    '${forecast.current.pressureMb.ceil()} hpa',
+                    '${forecast.current.pressureIn.ceil()} hpa',
                     arrow: false,
                     img2: 'waves.png',
                   ),
                   const SizedBox(
                     width: 16,
                   ),
-                  const SmallWidget(
+                  SmallWidget(
                     'Group2.png',
-                    'Snow chance',
-                    '0 mm',
+                    'UV Index',
+                    '${forecast.forecast.forecastday[0].hour[k].uv}',
                     '10%',
                     arrow: true,
                     img2: 'light_mode.png',
@@ -126,17 +129,17 @@ class PageToday extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 16),
               child: BigWidget('Group 21.png', 'Hourly forecast', 150,
-                  widgetData: HourlyForecastWidget(json)),
+                  widgetData: HourlyForecastWidget(forecast)),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 16),
               child: BigWidget('Group 32.png', 'Day forecast', 219,
-                  widgetData: DayForecastWidget(json)),
+                  widgetData: DayForecastWidget(forecast)),
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 16),
               child: BigWidget('Group 33.png', 'Chance of precipitation', 213,
-                  widgetData: BarChartSample1(json)),
+                  widgetData: BarChartSample1(forecast)),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),

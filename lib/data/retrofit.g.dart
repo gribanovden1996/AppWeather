@@ -34,7 +34,7 @@ class _RestClient implements RestClient {
     )
             .compose(
               _dio.options,
-              '/forecast.json?key=787aa804050b4da7b70132421241101&q=51.660781,39.200296&days=7&lang=ru',
+              '/forecast.json?key=787aa804050b4da7b70132421241101&q=51.660781,39.200296&days=10&lang=ru',
               queryParameters: queryParameters,
               data: _data,
             )
