@@ -1,17 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:weather1/json_weatherapi_forecast/json_forecast.dart';
 
+import '../../resources/app_text_style.dart';
+
 class HourlyForecastWidget extends StatelessWidget {
   final JsonForecast forecast;
   final int currentHour;
   const HourlyForecastWidget(this.forecast, this.currentHour, {super.key});
 
-  Widget dayColumn(int i, String icon, int a) => Column(
+  Widget dayColumn(int hour, String icon, int temp) => Column(
     mainAxisSize: MainAxisSize.min,
     children: [
-      Text('$iч'),
+      Text('$hourч',
+        style: styleDayWidgetForecast2,
+      ),
       Image.network('http:$icon',width: 32,height: 32,),
-      Text('$a°'),
+      Text('$temp°',
+        style: styleDayWidgetForecast,
+      ),
     ],
   );
   @override

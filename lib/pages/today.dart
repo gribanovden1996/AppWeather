@@ -11,7 +11,7 @@ class PageToday extends StatelessWidget {
   final JsonForecast forecast;
   PageToday(this.forecast, {super.key});
 
-  static DateTime nowTime = DateTime.now();
+  static DateTime currentTime = DateTime.now();
   late String txt1;
   late String txt2;
   late String txt3;
@@ -20,9 +20,9 @@ class PageToday extends StatelessWidget {
 
   void _timeInit() {
     DateTime sunriseTime = DateTime(
-      nowTime.year,
-      nowTime.month,
-      nowTime.day,
+      currentTime.year,
+      currentTime.month,
+      currentTime.day,
       DateFormat('hh:mm a')
           .parse(forecast.forecast.forecastday[0].astro.sunrise)
           .hour,
@@ -31,9 +31,9 @@ class PageToday extends StatelessWidget {
           .minute,
     );
     DateTime sunsetTime = DateTime(
-      nowTime.year,
-      nowTime.month,
-      nowTime.day,
+      currentTime.year,
+      currentTime.month,
+      currentTime.day,
       DateFormat('hh:mm a')
           .parse(forecast.forecast.forecastday[0].astro.sunset)
           .hour,
@@ -44,15 +44,15 @@ class PageToday extends StatelessWidget {
     txt1 = DateFormat('HH:mm').format(sunriseTime);
     txt3 = DateFormat('HH:mm').format(sunsetTime);
 
-    (sunriseTime.isBefore(nowTime))
-        ? txt2 = '${nowTime.difference(sunriseTime).inHours}ч назад'
-        : txt2 = 'через ${(nowTime.difference(sunriseTime).inHours).abs()}ч';
+    (sunriseTime.isBefore(currentTime))
+        ? txt2 = '${currentTime.difference(sunriseTime).inHours}ч назад'
+        : txt2 = 'через ${(currentTime.difference(sunriseTime).inHours).abs()}ч';
 
-    (sunsetTime.isBefore(nowTime))
-        ? txt4 = '${nowTime.difference(sunsetTime).inHours}ч назад'
-        : txt4 = 'через ${(nowTime.difference(sunsetTime).inHours).abs()}ч';
+    (sunsetTime.isBefore(currentTime))
+        ? txt4 = '${currentTime.difference(sunsetTime).inHours}ч назад'
+        : txt4 = 'через ${(currentTime.difference(sunsetTime).inHours).abs()}ч';
 
-    int nowUnix = DateTime(nowTime.year,nowTime.month,nowTime.day,nowTime.hour).millisecondsSinceEpoch ~/ 1000;
+    int nowUnix = DateTime(currentTime.year,currentTime.month,currentTime.day,currentTime.hour).millisecondsSinceEpoch ~/ 1000;
       for (int i=0; i<24; i++) {
         if (nowUnix==forecast.forecast.forecastday[0].hour[i].timeEpoch) {
           currentHour = i;

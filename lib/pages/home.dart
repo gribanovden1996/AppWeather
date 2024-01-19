@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather1/Pages/tomorrow.dart';
 
-import '../data/geolocator.dart';
+import '../data/geoloc.dart';
 import '../data/retrofit.dart';
 import '../json_weatherapi_forecast/json_forecast.dart';
 import '10_days.dart';
@@ -42,12 +42,12 @@ class HomeState extends State<Home> {
         body: FutureBuilder(
           future: loc.getCurrentLocation(),
           builder: (BuildContext context, AsyncSnapshot<Position?> snapshot) {
-            if (snapshot.hasError) return const Center(child: Text('error'));
+            if (snapshot.hasError) return const Center(child: Text('error1'));
             if (!snapshot.hasData) {
               return const Center(child: CircularProgressIndicator());
             } else {
               Position locat = snapshot.data!;
-              String pos = '${locat.latitude} ${locat.longitude}';
+              String pos = '${locat.latitude}, ${locat.longitude}';
               String pos2 = '51.660781, 39.200296';
               return (!snapshot.hasData)
                   ? const Center(child: CircularProgressIndicator())
@@ -60,8 +60,14 @@ class HomeState extends State<Home> {
                   ),
                   builder: (BuildContext context,
                       AsyncSnapshot<JsonForecast> snapshot) {
-                    if (snapshot.hasError)
-                      return const Center(child: Text('error'));
+                    // if (snapshot.hasError) {
+                    //   return Center(child: Column(
+                    //     children: [
+                    //       const Text('error2'),
+                    //       Text(pos),
+                    //     ],
+                    //   ));
+                    // }
                     if (!snapshot.hasData) {
                       return const Center(child: CircularProgressIndicator());
                     } else {

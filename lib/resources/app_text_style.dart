@@ -58,3 +58,16 @@ TextStyle styleChanceWidget2 = TextStyle(
   fontWeight: FontWeight.values[4],
   fontFamily: 'ProductSans',
 );
+
+TextStyle styleDayWidgetForecast = TextStyle(
+  fontSize: 18.795,
+  color: AppColors.contentColorBlack,
+  fontWeight: FontWeight.values[4],
+  fontFamily: 'ProductSans',
+);
+TextStyle styleDayWidgetForecast2 = TextStyle(
+  fontSize: 13.157,
+  color: AppColors.contentColorBlack,
+  fontWeight: FontWeight.values[4],
+  fontFamily: GoogleFonts.openSans().fontFamily,
+);

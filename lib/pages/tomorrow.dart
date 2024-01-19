@@ -8,16 +8,15 @@ import 'package:weather1/pages/today/small_widget.dart';
 import 'package:weather1/pages/today/big_widget.dart';
 import 'package:weather1/json_weatherapi_forecast/json_forecast.dart';
 
-import '../data/geolocator.dart';
+import '../data/geoloc.dart';
 
 class PageTomorrow extends StatelessWidget {
   final JsonForecast forecast;
   PageTomorrow(this.forecast, {super.key});
 
-  static DateTime today = DateTime.now();
-  DateTime tomorrow  = today.add(const Duration(days: 1));
+  static DateTime currentTime = DateTime.now();
+  DateTime tomorrow  = currentTime.add(const Duration(days: 1));
 
-  static DateTime nowTime = DateTime.now();
   late String txt1;
   late String txt2;
   late String txt3;
@@ -50,15 +49,15 @@ class PageTomorrow extends StatelessWidget {
     txt1 = DateFormat('HH:mm').format(sunriseTime);
     txt3 = DateFormat('HH:mm').format(sunsetTime);
 
-    (sunriseTime.isBefore(nowTime))
-        ? txt2 = '${nowTime.difference(sunriseTime).inHours}ч назад'
-        : txt2 = 'через ${(nowTime.difference(sunriseTime).inHours).abs()}ч';
+    (sunriseTime.isBefore(currentTime))
+        ? txt2 = '${currentTime.difference(sunriseTime).inHours}ч назад'
+        : txt2 = 'через ${(currentTime.difference(sunriseTime).inHours).abs()}ч';
 
-    (sunsetTime.isBefore(nowTime))
-        ? txt4 = '${nowTime.difference(sunsetTime).inHours}ч назад'
-        : txt4 = 'через ${(nowTime.difference(sunsetTime).inHours).abs()}ч';
+    (sunsetTime.isBefore(currentTime))
+        ? txt4 = '${currentTime.difference(sunsetTime).inHours}ч назад'
+        : txt4 = 'через ${(currentTime.difference(sunsetTime).inHours).abs()}ч';
 
-    int nowUnix = DateTime(nowTime.year,nowTime.month,nowTime.day,nowTime.hour).millisecondsSinceEpoch ~/ 1000;
+    int nowUnix = DateTime(currentTime.year,currentTime.month,currentTime.day,currentTime.hour).millisecondsSinceEpoch ~/ 1000;
     for (int i=0; i<24; i++) {
       if (nowUnix==forecast.forecast.forecastday[0].hour[i].timeEpoch) {
         currentHour = i;
@@ -91,7 +90,7 @@ class PageTomorrow extends StatelessWidget {
                     return const Center(child: CircularProgressIndicator());
                   } else {
                     Position locat = snapshot.data!;
-                    return Text('${locat.latitude} ${locat.longitude}');
+                    return Text('${locat.latitude}, ${locat.longitude}');
                   }
                 }
               ),

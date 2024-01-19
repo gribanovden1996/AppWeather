@@ -39,7 +39,8 @@ class OpenedAppBar extends StatelessWidget {
                       SizedBox(
                         width: MediaQuery.of(context).size.width-100,
                         child: AutoSizeText('${forecast.location.region}, ${forecast.location.country}',
-                          style: styleOpenedBar(22,4),),
+                          style: styleOpenedBar(22,4),
+                        maxLines: 1,),
                       ),
                       IconButton(
                           onPressed: () {},
@@ -48,16 +49,26 @@ class OpenedAppBar extends StatelessWidget {
                             color: Colors.white,)),],),),
                 Align(
                   alignment: Alignment.centerLeft,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                    textBaseline: TextBaseline.ideographic,
-                    children: [
-                      AutoSizeText('${forecast.current.tempC.ceil()}°',
-                          style: styleOpenedBar(112,4),),
-                      AutoSizeText('Feels like ${forecast.current.feelslikeC.ceil()}°',
-                          textAlign: TextAlign.left,
-                          style: styleOpenedBar(18,4),),],),),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width-160,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.ideographic,
+                      children: [
+                        SizedBox(
+                          width:(MediaQuery.of(context).size.width-160)*0.5,
+                          child: AutoSizeText('${forecast.current.tempC.ceil()}°',
+                              style: styleOpenedBar(112,4),
+                          maxLines: 1,),
+                        ),
+                        SizedBox(
+                          width:(MediaQuery.of(context).size.width-160)*0.5,
+                          child: AutoSizeText('Feels like ${forecast.current.feelslikeC.ceil()}°',
+                              textAlign: TextAlign.left,
+                              style: styleOpenedBar(18,4),),
+                        ),],),
+                  ),),
                 const Align(
                     alignment: Alignment.bottomLeft,
                     child: DateTimeWidget()),
