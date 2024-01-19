@@ -1,11 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'hour_condition/hour_condition.dart';
 
-
-part 'hour.freezed.dart';
-part 'hour.g.dart';
+part 'history_hour.freezed.dart';
+part 'history_hour.g.dart';
 
 @Freezed(
   toJson: true,
@@ -21,7 +19,6 @@ abstract class Hour with _$Hour {
     required double tempC,
     required double chanceOfRain,
     required double chanceOfSnow,
-    required Condition condition,
     required double uv,
     required double windKph,
     required double pressureMb,

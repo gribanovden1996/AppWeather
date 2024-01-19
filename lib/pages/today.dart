@@ -7,9 +7,12 @@ import 'package:weather1/pages/today/small_widget.dart';
 import 'package:weather1/pages/today/big_widget.dart';
 import 'package:weather1/json_weatherapi_forecast/json_forecast.dart';
 
+import '../json_weatherapi_history/json_history.dart';
+
 class PageToday extends StatelessWidget {
   final JsonForecast forecast;
-  PageToday(this.forecast, {super.key});
+  final JsonHistory history;
+  PageToday(this.forecast, this.history, {super.key});
 
   static DateTime currentTime = DateTime.now();
   late String txt1;
@@ -17,7 +20,20 @@ class PageToday extends StatelessWidget {
   late String txt3;
   late String txt4;
   late int currentHour;
+  late int arrow;
 
+  bool? _arrow(int a,int b,int c) {
+    (currentHour > 0)
+        ?arrow=b
+        :arrow=c;
+    if (arrow==a) {
+      return null;
+    } else if (arrow > a) {
+      return true;}
+    else{
+      return false;
+    }
+  }
   void _timeInit() {
     DateTime sunriseTime = DateTime(
       currentTime.year,
@@ -61,7 +77,6 @@ class PageToday extends StatelessWidget {
       }
   }
 
-
   @override
   Widget build(BuildContext context) {
     _timeInit();
@@ -81,8 +96,13 @@ class PageToday extends StatelessWidget {
                     'Group1.png',
                     'Wind speed',
                     '${forecast.current.windKph.ceil()} km/h',
-                    '${(forecast.current.windKph / 10).ceil()}km/h',
-                    arrow: true,
+                    // '${(forecast.current.windKph / 10).ceil()}km/h',
+                    (currentHour>0)
+                      ?'${(forecast.current.windKph.ceil()-forecast.forecast.forecastday[0].hour[currentHour-1].windKph.ceil()).abs()} km/h'
+                      :'${forecast.current.windKph.ceil()-history.forecast.forecastday[0].hour[23].windKph.ceil()} km/h',
+                    arrow: _arrow(forecast.current.windKph.ceil(),
+                        forecast.forecast.forecastday[0].hour[currentHour-1].windKph.ceil(),
+                        history.forecast.forecastday[0].hour[23].windKph.ceil()),
                     img2: null,
                   ),
                   const SizedBox(
@@ -108,8 +128,13 @@ class PageToday extends StatelessWidget {
                     'Group2.png',
                     'Pressure',
                     '${forecast.current.pressureMb.ceil()} hpa',
-                    '${forecast.current.pressureIn.ceil()} hpa',
-                    arrow: false,
+                    (currentHour>0)
+                        ?'${(forecast.current.pressureMb.ceil()-forecast.forecast.forecastday[0].hour[currentHour-1].pressureMb.ceil()).abs()} hpa'
+                        :'${(forecast.current.pressureMb.ceil()-history.forecast.forecastday[0].hour[23].pressureMb.ceil()).abs()} hpa',
+                    // '${forecast.current.pressureIn.ceil()} hpa',
+                    arrow: _arrow(forecast.current.pressureMb.ceil(),
+                        forecast.forecast.forecastday[0].hour[currentHour-1].pressureMb.ceil(),
+                        history.forecast.forecastday[0].hour[currentHour-1].pressureMb.ceil()),
                     img2: 'waves.png',
                   ),
                   const SizedBox(
@@ -119,8 +144,12 @@ class PageToday extends StatelessWidget {
                     'Group2.png',
                     'UV Index',
                     '${forecast.forecast.forecastday[0].hour[currentHour].uv}',
-                    '10%',
-                    arrow: true,
+                    (currentHour>0)
+                        ?'${(forecast.forecast.forecastday[0].hour[currentHour].uv.ceil()-forecast.forecast.forecastday[0].hour[currentHour-1].uv.ceil()).abs()}'
+                        :'${(forecast.forecast.forecastday[0].hour[currentHour].uv.ceil()-history.forecast.forecastday[0].hour[23].uv.ceil()).abs()}',
+                    arrow: _arrow(forecast.forecast.forecastday[0].hour[currentHour].uv.ceil(),
+                        forecast.forecast.forecastday[0].hour[currentHour-1].uv.ceil(),
+                        history.forecast.forecastday[0].hour[23].uv.ceil()),
                     img2: 'light_mode.png',
                   ),
                 ],

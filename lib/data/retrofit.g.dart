@@ -21,33 +21,6 @@ class _RestClient implements RestClient {
   String? baseUrl;
 
   @override
-  Future<JsonForecast> getData() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<JsonForecast>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/forecast.json?key=787aa804050b4da7b70132421241101&days=10&lang=ru&q=37.4226711,-122.0849872',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final value = JsonForecast.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<JsonForecast> getData2(
     String apiKey,
     int days,
@@ -81,6 +54,43 @@ class _RestClient implements RestClient {
               baseUrl,
             ))));
     final value = JsonForecast.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<JsonHistory> getData3(
+    String apiKey,
+    String pos,
+    String language,
+    String day,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'key': apiKey,
+      r'q': pos,
+      r'lang': language,
+      r'dt': day,
+    };
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<JsonHistory>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/history.json',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = JsonHistory.fromJson(_result.data!);
     return value;
   }
 

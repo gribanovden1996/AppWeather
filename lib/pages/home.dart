@@ -3,7 +3,10 @@ import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
 import 'package:weather1/Pages/tomorrow.dart';
+import 'package:weather1/json_weatherapi_history/json_history.dart';
+import 'package:weather1/resources/app_colors.dart';
 
 import '../data/geoloc.dart';
 import '../data/retrofit.dart';
@@ -19,15 +22,16 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
+  static DateTime currentTime = DateTime.now();
   String page ='';
   final weather = RestClient(Dio());
   final loc = Geoloc();
 
-  Widget _buildPageWidget(JsonForecast forecast) {
+  Widget _buildPageWidget(JsonForecast forecast, JsonHistory history) {
     switch (page) {
-      case "PageTomorrow": return PageTomorrow(forecast);
+      case "PageTomorrow": return PageTomorrow(forecast,);
       case "Page_10_days": return Page10Days(forecast);
-      default: return PageToday(forecast);
+      default: return PageToday(forecast,history);
     }
   }
 
@@ -38,7 +42,7 @@ class HomeState extends State<Home> {
     double contextWidth = min(MediaQuery.of(context).size.height,
         MediaQuery.of(context).size.width) + 70;
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 246, 237, 255),
+        backgroundColor: AppColors.appColor,
         body: FutureBuilder(
           future: loc.getCurrentLocation(),
           builder: (BuildContext context, AsyncSnapshot<Position?> snapshot) {
@@ -60,31 +64,50 @@ class HomeState extends State<Home> {
                   ),
                   builder: (BuildContext context,
                       AsyncSnapshot<JsonForecast> snapshot) {
-                    // if (snapshot.hasError) {
-                    //   return Center(child: Column(
-                    //     children: [
-                    //       const Text('error2'),
-                    //       Text(pos),
-                    //     ],
-                    //   ));
-                    // }
+                    if (snapshot.hasError) {
+                      return Center(child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Text('error2'),
+                          Text(pos),
+                          Image.network('http://cdn.weatherapi.com/weather/64x64/day/248.png')
+                        ],
+                      ));
+                    }
                     if (!snapshot.hasData) {
                       return const Center(child: CircularProgressIndicator());
                     } else {
                       JsonForecast forecast = snapshot.data!;
-                      return CustomScrollView(
-                        physics: const BouncingScrollPhysics(),
-                        slivers: [
-                          SliverPersistentHeader(
-                            pinned: true,
-                            delegate:
-                            CustomSliverPersistentHeaderDelegate(
-                                changePage,
-                                forecast,
-                                contextWidth),
+                      return FutureBuilder(
+                          future: weather.getData3(
+                              '787aa804050b4da7b70132421241101',
+                              pos,
+                              'ru',
+                              DateFormat('yyyy-MM-dd').format(currentTime.subtract(const Duration(days: 1)))
                           ),
-                          SliverToBoxAdapter(child: _buildPageWidget(forecast))
-                        ],
+                          builder: (BuildContext context,
+                              AsyncSnapshot<JsonHistory> snapshot) {
+                                if (snapshot.hasError) return const Center(child: Text('error1'));
+                                if (!snapshot.hasData) {
+                                return const Center(child: CircularProgressIndicator());
+                                } else {
+                                  JsonHistory history = snapshot.data!;
+                                  return CustomScrollView(
+                                    physics: const BouncingScrollPhysics(),
+                                    slivers: [
+                                      SliverPersistentHeader(
+                                        pinned: true,
+                                        delegate:
+                                        CustomSliverPersistentHeaderDelegate(
+                                            changePage,
+                                            forecast,
+                                            contextWidth),
+                                      ),
+                                      SliverToBoxAdapter(child: _buildPageWidget(forecast, history))
+                                    ],
+                                  );
+                                }
+                          }
                       );
                     }
                   }

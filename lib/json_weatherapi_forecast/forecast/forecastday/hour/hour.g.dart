@@ -13,6 +13,8 @@ _$HourImpl _$$HourImplFromJson(Map<String, dynamic> json) => _$HourImpl(
       chanceOfSnow: (json['chance_of_snow'] as num).toDouble(),
       condition: Condition.fromJson(json['condition'] as Map<String, dynamic>),
       uv: (json['uv'] as num).toDouble(),
+      windKph: (json['wind_kph'] as num).toDouble(),
+      pressureMb: (json['pressure_mb'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$HourImplToJson(_$HourImpl instance) =>
@@ -23,4 +25,6 @@ Map<String, dynamic> _$$HourImplToJson(_$HourImpl instance) =>
       'chance_of_snow': instance.chanceOfSnow,
       'condition': instance.condition,
       'uv': instance.uv,
+      'wind_kph': instance.windKph,
+      'pressure_mb': instance.pressureMb,
     };
