@@ -6,8 +6,8 @@ import 'date_time_widget.dart';
 import 'package:weather1/resources/app_resources.dart';
 
 class OpenedAppBar extends StatelessWidget {
-  final JsonForecast json;
-  const OpenedAppBar(this.json,{super.key});
+  final JsonForecast forecast;
+  const OpenedAppBar(this.forecast,{super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,11 @@ class OpenedAppBar extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('${json.location.region}, ${json.location.country}',
-                        style: const TextStyle(color: Colors.white),),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width-100,
+                        child: AutoSizeText('${forecast.location.region}, ${forecast.location.country}',
+                          style: styleOpenedBar(22,4),),
+                      ),
                       IconButton(
                           onPressed: () {},
                           icon: const Icon(
@@ -50,11 +53,11 @@ class OpenedAppBar extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.baseline,
                     textBaseline: TextBaseline.ideographic,
                     children: [
-                      AutoSizeText('${json.current.tempC.ceil()}°',
-                          style: styleOpenedBar(112),),
-                      AutoSizeText('Feels like ${json.current.feelslikeC.ceil()}°',
+                      AutoSizeText('${forecast.current.tempC.ceil()}°',
+                          style: styleOpenedBar(112,4),),
+                      AutoSizeText('Feels like ${forecast.current.feelslikeC.ceil()}°',
                           textAlign: TextAlign.left,
-                          style: styleOpenedBar(18),),],),),
+                          style: styleOpenedBar(18,4),),],),),
                 const Align(
                     alignment: Alignment.bottomLeft,
                     child: DateTimeWidget()),
@@ -68,11 +71,11 @@ class OpenedAppBar extends StatelessWidget {
                         SizedBox(
                           width: 107,
                           height: 107,
-                          child: Image.network('https:${json.current.condition.icon}',
+                          child: Image.network('https:${forecast.current.condition.icon}',
                             fit: BoxFit.cover,
                           ),),
-                        AutoSizeText(json.current.condition.text,
-                          style: styleOpenedBar(22),
+                        AutoSizeText(forecast.current.condition.text,
+                          style: styleOpenedBar(22,4),
                           maxLines: 2,
                           textAlign: TextAlign.center,
                         ),],),
@@ -84,10 +87,10 @@ class OpenedAppBar extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text('Day ${json.forecast.forecastday[0].day.maxtempC.ceil()}°',
-                        style: styleOpenedBar(18),),
-                      Text('Night ${json.forecast.forecastday[0].day.mintempC.ceil()}°',
-                        style: styleOpenedBar(18),)
+                      Text('Day ${forecast.forecast.forecastday[0].day.maxtempC.ceil()}°',
+                        style: styleOpenedBar(18,7),),
+                      Text('Night ${forecast.forecast.forecastday[0].day.mintempC.ceil()}°',
+                        style: styleOpenedBar(18,7),)
                     ],
                   ),
                 ),

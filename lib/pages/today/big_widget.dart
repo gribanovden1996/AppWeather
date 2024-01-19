@@ -2,6 +2,9 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weather1/resources/app_colors.dart';
+
+import '../../resources/app_text_style.dart';
 
 class BigWidget extends StatelessWidget {
   const BigWidget (this.img,  this.txt1, this.height1,{super.key, required this.widgetData});
@@ -17,7 +20,7 @@ class BigWidget extends StatelessWidget {
         height: height1,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(18)),
-          color: Color.fromARGB(77, 208, 188, 255),
+          color: AppColors.contentColor2,
         ),
         child: Stack(
           children: [
@@ -32,7 +35,7 @@ class BigWidget extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Text(txt1,
-                          style: GoogleFonts.openSans(fontSize: 14)),
+                          style: styleBigWidget),
                     )
                   ],
                 ),

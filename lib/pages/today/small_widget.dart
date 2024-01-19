@@ -1,8 +1,12 @@
 import 'dart:core';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weather1/resources/app_colors.dart';
+
+import '../../resources/app_text_style.dart';
 
 class SmallWidget extends StatelessWidget {
   const SmallWidget (this.img,  this.txt1, this.txt2, this.txt3, {required this.arrow, required this.img2, super.key});
@@ -21,7 +25,7 @@ class SmallWidget extends StatelessWidget {
             height: 65,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(16)),
-              color: Color.fromARGB(77, 208, 188, 255),
+              color: AppColors.smallWidgetConteiner,
             ),
 
           child: Padding(
@@ -47,9 +51,9 @@ class SmallWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(txt1,
-                              style: GoogleFonts.openSans(fontSize: 14)),
+                              style: styleSmallWidget1(14)),
                           Text(txt2,
-                              style: GoogleFonts.openSans(fontSize: 14)),
+                              style: styleSmallWidget1(16)),
                         ],
                       )
                   ],
@@ -66,7 +70,7 @@ class SmallWidget extends StatelessWidget {
                           : const Icon(Icons.arrow_drop_up, size: 16, color: Color.fromARGB(255, 138, 32, 213)),
                       Text(
                         txt3,
-                        style: GoogleFonts.openSans(fontSize: 11),)
+                        style: styleSmallWidget2,)
                     ],
                   ),
                 )

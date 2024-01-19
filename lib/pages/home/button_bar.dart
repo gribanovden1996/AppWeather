@@ -1,6 +1,8 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:weather1/pages/home.dart';
+
+import '../../resources/app_resources.dart';
 
 class Button extends StatefulWidget {
   const Button(this.changePage,{super.key});
@@ -35,15 +37,18 @@ class ButtonState extends State<Button> {
             },
             style: ElevatedButton.styleFrom(
                 backgroundColor: isButtonPressed[text]!
-                    ? const Color.fromARGB(255, 255, 255, 255)
-                    : const Color.fromARGB(255, 224, 182, 255),
+                    ? AppColors.buttenBar
+                    : AppColors.buttenBarPressed,
                 shape:
                     RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                 minimumSize: (const Size(50, 42)),
             ),
-            child: Text(text,
-                style: GoogleFonts.openSans(
-                    fontSize: 13, color: const Color.fromARGB(255, 0, 0, 0))),
+            child: AutoSizeText(text,
+                style: isButtonPressed[text]!
+                    ?styleButtonBar(AppColors.buttenBarText)
+                    :styleButtonBar(AppColors.buttenBarTextPressed),
+                maxLines: 1,
+            ),
           ),
         ),
       );

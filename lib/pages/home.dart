@@ -48,10 +48,10 @@ class HomeState extends State<Home> {
             } else {
               Position locat = snapshot.data!;
               String pos = '${locat.latitude} ${locat.longitude}';
+              String pos2 = '51.660781, 39.200296';
               return (!snapshot.hasData)
                   ? const Center(child: CircularProgressIndicator())
-                  :
-              FutureBuilder(
+                  :FutureBuilder(
                   future: weather.getData2(
                       '787aa804050b4da7b70132421241101',
                       10,

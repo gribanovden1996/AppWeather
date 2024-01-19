@@ -1,6 +1,9 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:weather1/resources/app_colors.dart';
+
+import '../../resources/app_text_style.dart';
 
 class DayWidget extends StatelessWidget {
   const DayWidget (this.img,  this.day, this.text, this.tempMax, this.tempMin, {super.key});
@@ -30,10 +33,9 @@ class DayWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(day,
-                      style: GoogleFonts.openSans(fontSize: 16)),
+                      style: styleDayWidget(AppColors.contentColorBlack)),
                     Text(text,
-                      style: GoogleFonts.openSans(fontSize: 16,
-                        color: const Color.fromARGB(255, 73, 70, 73))),
+                      style: styleDayWidget(AppColors.dayWidget)),
                   ],
                 ),
               ),
@@ -53,11 +55,9 @@ class DayWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text('${tempMax.ceil()}°',
-                              style: GoogleFonts.openSans(fontSize: 16,
-                                  color: const Color.fromARGB(255, 46, 0, 78))),
+                              style: styleDayWidget(AppColors.dayWidgetTemp)),
                           Text('${tempMin.ceil()}°',
-                              style: GoogleFonts.openSans(fontSize: 16,
-                                  color: const Color.fromARGB(255, 46, 0, 78))),
+                              style: styleDayWidget(AppColors.dayWidgetTemp)),
                         ],
                       ),
                     ),

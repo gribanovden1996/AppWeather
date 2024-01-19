@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
+import '../../resources/app_text_style.dart';
+
 class DateTimeWidget extends StatefulWidget {
   const DateTimeWidget({super.key});
 
@@ -35,7 +37,7 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
           if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
           return Text(
               DateFormat('MMMM DD, HH:mm:ss').format(snapshot.data!),
-              style: const TextStyle(color: Colors.white));
+              style: styleOpenedBar(18,4));
         }
     );
   }

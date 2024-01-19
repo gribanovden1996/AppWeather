@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:weather1/resources/app_colors.dart';
 import '../../json_weatherapi_forecast/json_forecast.dart';
+import '../../resources/app_text_style.dart';
 
 class ChanceOfPrecipitationWidget extends StatelessWidget {
   final JsonForecast forecast;
@@ -18,7 +20,9 @@ class ChanceOfPrecipitationWidget extends StatelessWidget {
       SizedBox(width: 25,
         child: Align(
             alignment: Alignment.centerRight,
-            child: Text('$txt1ч'))),
+            child: Text('$txt1ч',
+              style: styleChanceWidget,
+            ))),
       const SizedBox(width: 20,),
       SizedBox(
         width: widthX-180,
@@ -32,10 +36,10 @@ class ChanceOfPrecipitationWidget extends StatelessWidget {
               children: [
                 SizedBox(
                   width: (widthX-180)*chance/100,
-                  child: Container(decoration: boxDecor(const Color.fromARGB(255,138, 32, 213))),),
+                  child: Container(decoration: boxDecor(AppColors.chanceOfPrecipitationWidget1)),),
                 SizedBox(
                   width: (widthX-180)*(1-chance/100),
-                  child: Container(decoration: boxDecor(const Color.fromARGB(0, 250, 237, 255))),),
+                  child: Container(decoration: boxDecor(AppColors.chanceOfPrecipitationWidget2)),),
               ],
             ),
           ],
@@ -46,7 +50,9 @@ class ChanceOfPrecipitationWidget extends StatelessWidget {
           width: 35,
           child: Align(
               alignment: Alignment.centerRight,
-              child: Text('${chance.ceil()}%'))),
+              child: Text('${chance.ceil()}%',
+                style: styleChanceWidget2,
+              ))),
     ],
   );
 

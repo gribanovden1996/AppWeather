@@ -24,4 +24,19 @@ class AppColors {
   static const Color contentColorCyan = Color(0xFF50E4FF);
   static const Color contentColor1 = Color.fromARGB(77, 138, 32, 213);
   static const Color contentColor2 = Color.fromARGB(77, 208, 188, 255);
+
+  static const Color buttenBarTextPressed = Color.fromARGB(255, 46, 0, 78);
+  static const Color buttenBarText = Color.fromARGB(255, 0, 0, 0);
+  static const Color buttenBar = Color.fromARGB(255, 255, 255, 255);
+  static const Color buttenBarPressed = Color.fromARGB(255, 224, 182, 255);
+
+
+  static const Color smallWidgetConteiner = Color.fromARGB(77, 208, 188, 255);
+  static const Color smallWidgetText = Color.fromARGB(255, 30, 27, 27,);
+
+  static const Color dayWidget = Color.fromARGB(255, 73, 70, 73,);
+  static const Color dayWidgetTemp = Color.fromARGB(255,46, 0, 78,);
+
+  static const Color chanceOfPrecipitationWidget1 = Color.fromARGB(255,138, 32, 213);
+  static const Color chanceOfPrecipitationWidget2 = Color.fromARGB(0, 250, 237, 255);
 }

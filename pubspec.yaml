@@ -44,3 +44,7 @@ flutter:
     - assets/day_widget/
     - assets/home/
     - assets/small_widget/
+  fonts:
+    - family: ProductSans
+      fonts:
+        - asset: assets/fonts/productsans.ttf
