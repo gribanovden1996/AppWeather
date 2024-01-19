@@ -3,19 +3,9 @@ import 'package:weather1/json_weatherapi_forecast/json_forecast.dart';
 
 class HourlyForecastWidget extends StatelessWidget {
   final JsonForecast forecast;
-  HourlyForecastWidget(this.forecast, {super.key});
+  final int currentHour;
+  const HourlyForecastWidget(this.forecast, this.currentHour, {super.key});
 
-  static DateTime now = DateTime.now();
-  static int nowUnix = DateTime(now.year,now.month,now.day,now.hour).millisecondsSinceEpoch ~/ 1000;
-  late int k;
-  void _nowUnixInit() {
-    for (int i=0;i<24;i++) {
-      if (nowUnix==forecast.forecast.forecastday[0].hour[i].timeEpoch) {
-        k=i;
-        break;
-      }
-    }
-  }
   Widget dayColumn(int i, String icon, int a) => Column(
     mainAxisSize: MainAxisSize.min,
     children: [
@@ -26,7 +16,7 @@ class HourlyForecastWidget extends StatelessWidget {
   );
   @override
   Widget build(BuildContext context) {
-    _nowUnixInit();
+    int k = currentHour;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

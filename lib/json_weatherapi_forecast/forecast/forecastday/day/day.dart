@@ -20,6 +20,8 @@ abstract class Day with _$Day {
     required double maxtempC,
     required double mintempC,
     required double avgtempC,
+    required double maxwindKph,
+    required double uv,
     required double dailyChanceOfRain,
     required double dailyChanceOfSnow,
     required DayCondition condition,

@@ -8,10 +8,10 @@ part 'retrofit.g.dart';
 @RestApi(baseUrl: 'https://api.weatherapi.com/v1')
 abstract class RestClient {
   factory RestClient(Dio dio, {String baseUrl}) = _RestClient;
-  static const String key = '787aa804050b4da7b70132421241101';
-  static const String reg = '51.660781,39.200296';
-
-  @GET('/forecast.json?key=$key&q=$reg&days=10&lang=ru')
-  Future<JsonForecast> getData();
-
+  @GET('/forecast.json')
+  Future<JsonForecast> getData2(
+      @Query('key') String apiKey,
+      @Query('days') int days,
+      @Query('lang') String language,
+      @Query('q') String pos);
 }

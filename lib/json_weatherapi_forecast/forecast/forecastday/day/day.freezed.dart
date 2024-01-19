@@ -23,6 +23,8 @@ mixin _$Day {
   double get maxtempC => throw _privateConstructorUsedError;
   double get mintempC => throw _privateConstructorUsedError;
   double get avgtempC => throw _privateConstructorUsedError;
+  double get maxwindKph => throw _privateConstructorUsedError;
+  double get uv => throw _privateConstructorUsedError;
   double get dailyChanceOfRain => throw _privateConstructorUsedError;
   double get dailyChanceOfSnow => throw _privateConstructorUsedError;
   DayCondition get condition => throw _privateConstructorUsedError;
@@ -41,6 +43,8 @@ abstract class $DayCopyWith<$Res> {
       {double maxtempC,
       double mintempC,
       double avgtempC,
+      double maxwindKph,
+      double uv,
       double dailyChanceOfRain,
       double dailyChanceOfSnow,
       DayCondition condition});
@@ -63,6 +67,8 @@ class _$DayCopyWithImpl<$Res, $Val extends Day> implements $DayCopyWith<$Res> {
     Object? maxtempC = null,
     Object? mintempC = null,
     Object? avgtempC = null,
+    Object? maxwindKph = null,
+    Object? uv = null,
     Object? dailyChanceOfRain = null,
     Object? dailyChanceOfSnow = null,
     Object? condition = null,
@@ -79,6 +85,14 @@ class _$DayCopyWithImpl<$Res, $Val extends Day> implements $DayCopyWith<$Res> {
       avgtempC: null == avgtempC
           ? _value.avgtempC
           : avgtempC // ignore: cast_nullable_to_non_nullable
+              as double,
+      maxwindKph: null == maxwindKph
+          ? _value.maxwindKph
+          : maxwindKph // ignore: cast_nullable_to_non_nullable
+              as double,
+      uv: null == uv
+          ? _value.uv
+          : uv // ignore: cast_nullable_to_non_nullable
               as double,
       dailyChanceOfRain: null == dailyChanceOfRain
           ? _value.dailyChanceOfRain
@@ -114,6 +128,8 @@ abstract class _$$DayImplCopyWith<$Res> implements $DayCopyWith<$Res> {
       {double maxtempC,
       double mintempC,
       double avgtempC,
+      double maxwindKph,
+      double uv,
       double dailyChanceOfRain,
       double dailyChanceOfSnow,
       DayCondition condition});
@@ -134,6 +150,8 @@ class __$$DayImplCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res, _$DayImpl>
     Object? maxtempC = null,
     Object? mintempC = null,
     Object? avgtempC = null,
+    Object? maxwindKph = null,
+    Object? uv = null,
     Object? dailyChanceOfRain = null,
     Object? dailyChanceOfSnow = null,
     Object? condition = null,
@@ -150,6 +168,14 @@ class __$$DayImplCopyWithImpl<$Res> extends _$DayCopyWithImpl<$Res, _$DayImpl>
       avgtempC: null == avgtempC
           ? _value.avgtempC
           : avgtempC // ignore: cast_nullable_to_non_nullable
+              as double,
+      maxwindKph: null == maxwindKph
+          ? _value.maxwindKph
+          : maxwindKph // ignore: cast_nullable_to_non_nullable
+              as double,
+      uv: null == uv
+          ? _value.uv
+          : uv // ignore: cast_nullable_to_non_nullable
               as double,
       dailyChanceOfRain: null == dailyChanceOfRain
           ? _value.dailyChanceOfRain
@@ -175,6 +201,8 @@ class _$DayImpl with DiagnosticableTreeMixin implements _Day {
       {required this.maxtempC,
       required this.mintempC,
       required this.avgtempC,
+      required this.maxwindKph,
+      required this.uv,
       required this.dailyChanceOfRain,
       required this.dailyChanceOfSnow,
       required this.condition});
@@ -189,6 +217,10 @@ class _$DayImpl with DiagnosticableTreeMixin implements _Day {
   @override
   final double avgtempC;
   @override
+  final double maxwindKph;
+  @override
+  final double uv;
+  @override
   final double dailyChanceOfRain;
   @override
   final double dailyChanceOfSnow;
@@ -197,7 +229,7 @@ class _$DayImpl with DiagnosticableTreeMixin implements _Day {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Day(maxtempC: $maxtempC, mintempC: $mintempC, avgtempC: $avgtempC, dailyChanceOfRain: $dailyChanceOfRain, dailyChanceOfSnow: $dailyChanceOfSnow, condition: $condition)';
+    return 'Day(maxtempC: $maxtempC, mintempC: $mintempC, avgtempC: $avgtempC, maxwindKph: $maxwindKph, uv: $uv, dailyChanceOfRain: $dailyChanceOfRain, dailyChanceOfSnow: $dailyChanceOfSnow, condition: $condition)';
   }
 
   @override
@@ -208,6 +240,8 @@ class _$DayImpl with DiagnosticableTreeMixin implements _Day {
       ..add(DiagnosticsProperty('maxtempC', maxtempC))
       ..add(DiagnosticsProperty('mintempC', mintempC))
       ..add(DiagnosticsProperty('avgtempC', avgtempC))
+      ..add(DiagnosticsProperty('maxwindKph', maxwindKph))
+      ..add(DiagnosticsProperty('uv', uv))
       ..add(DiagnosticsProperty('dailyChanceOfRain', dailyChanceOfRain))
       ..add(DiagnosticsProperty('dailyChanceOfSnow', dailyChanceOfSnow))
       ..add(DiagnosticsProperty('condition', condition));
@@ -224,6 +258,9 @@ class _$DayImpl with DiagnosticableTreeMixin implements _Day {
                 other.mintempC == mintempC) &&
             (identical(other.avgtempC, avgtempC) ||
                 other.avgtempC == avgtempC) &&
+            (identical(other.maxwindKph, maxwindKph) ||
+                other.maxwindKph == maxwindKph) &&
+            (identical(other.uv, uv) || other.uv == uv) &&
             (identical(other.dailyChanceOfRain, dailyChanceOfRain) ||
                 other.dailyChanceOfRain == dailyChanceOfRain) &&
             (identical(other.dailyChanceOfSnow, dailyChanceOfSnow) ||
@@ -235,7 +272,7 @@ class _$DayImpl with DiagnosticableTreeMixin implements _Day {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, maxtempC, mintempC, avgtempC,
-      dailyChanceOfRain, dailyChanceOfSnow, condition);
+      maxwindKph, uv, dailyChanceOfRain, dailyChanceOfSnow, condition);
 
   @JsonKey(ignore: true)
   @override
@@ -256,6 +293,8 @@ abstract class _Day implements Day {
       {required final double maxtempC,
       required final double mintempC,
       required final double avgtempC,
+      required final double maxwindKph,
+      required final double uv,
       required final double dailyChanceOfRain,
       required final double dailyChanceOfSnow,
       required final DayCondition condition}) = _$DayImpl;
@@ -268,6 +307,10 @@ abstract class _Day implements Day {
   double get mintempC;
   @override
   double get avgtempC;
+  @override
+  double get maxwindKph;
+  @override
+  double get uv;
   @override
   double get dailyChanceOfRain;
   @override

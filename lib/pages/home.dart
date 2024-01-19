@@ -2,7 +2,10 @@ import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:weather1/Pages/tomorrow.dart';
 
+import '../data/geolocator.dart';
 import '../data/retrofit.dart';
 import '../json_weatherapi_forecast/json_forecast.dart';
 import '10_days.dart';
@@ -17,12 +20,13 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> {
   String page ='';
-  static final dio = Dio();
-  final weather = RestClient(dio);
+  final weather = RestClient(Dio());
+  final loc = Geoloc();
+
   Widget _buildPageWidget(JsonForecast forecast) {
     switch (page) {
-      case "PageTomorrow": return PageToday(forecast);
-      case "Page_10_days": return Page_10_days(forecast);
+      case "PageTomorrow": return PageTomorrow(forecast);
+      case "Page_10_days": return Page10Days(forecast);
       default: return PageToday(forecast);
     }
   }
@@ -36,29 +40,51 @@ class HomeState extends State<Home> {
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 246, 237, 255),
         body: FutureBuilder(
-            future: weather.getData(),
-            builder: (BuildContext context, AsyncSnapshot<JsonForecast> snapshot) {
-              if (snapshot.hasError) return const Center(child: Text('error'));
-              if (!snapshot.hasData) {
-                return const Center(child: CircularProgressIndicator());
-              } else {
-                JsonForecast forecast = snapshot.data!;
-                return CustomScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  slivers: [
-                    SliverPersistentHeader(
-                      pinned: true,
-                      delegate:
-                      CustomSliverPersistentHeaderDelegate(
-                          (String newPage) => setState(() => page = newPage),
-                          forecast,
-                          contextWidth),
-                    ),
-                    SliverToBoxAdapter(child: _buildPageWidget(forecast))
-                  ],
-                );
-              }
+          future: loc.getCurrentLocation(),
+          builder: (BuildContext context, AsyncSnapshot<Position?> snapshot) {
+            if (snapshot.hasError) return const Center(child: Text('error'));
+            if (!snapshot.hasData) {
+              return const Center(child: CircularProgressIndicator());
+            } else {
+              Position locat = snapshot.data!;
+              String pos = '${locat.latitude} ${locat.longitude}';
+              return (!snapshot.hasData)
+                  ? const Center(child: CircularProgressIndicator())
+                  :
+              FutureBuilder(
+                  future: weather.getData2(
+                      '787aa804050b4da7b70132421241101',
+                      10,
+                      'ru',
+                      pos
+                  ),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<JsonForecast> snapshot) {
+                    if (snapshot.hasError)
+                      return const Center(child: Text('error'));
+                    if (!snapshot.hasData) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else {
+                      JsonForecast forecast = snapshot.data!;
+                      return CustomScrollView(
+                        physics: const BouncingScrollPhysics(),
+                        slivers: [
+                          SliverPersistentHeader(
+                            pinned: true,
+                            delegate:
+                            CustomSliverPersistentHeaderDelegate(
+                                changePage,
+                                forecast,
+                                contextWidth),
+                          ),
+                          SliverToBoxAdapter(child: _buildPageWidget(forecast))
+                        ],
+                      );
+                    }
+                  }
+              );
             }
+          }
         ),
       );
   }

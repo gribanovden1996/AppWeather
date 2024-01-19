@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 
-class Http_openweathermap {
+class HttpOpenweathermap {
   final dio = Dio();
   Future<Map<String,String>> getTemp2() async {
     var response = await dio.get(

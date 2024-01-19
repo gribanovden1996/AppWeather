@@ -2,35 +2,17 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import '../../json_weatherapi_forecast/json_forecast.dart';
 
-class BarChartSample1 extends StatelessWidget {
+class ChanceOfPrecipitationWidget extends StatelessWidget {
   final JsonForecast forecast;
-  BarChartSample1(this.forecast, {super.key});
-  BoxDecoration boxDecoration1 = const BoxDecoration(
-    borderRadius: BorderRadius.all(Radius.circular(100)),
-    color: Colors.white,
-  );
-  BoxDecoration boxDecoration2 = const BoxDecoration(
-    borderRadius: BorderRadius.all(Radius.circular(100)),
-    color: Color.fromARGB(255,138, 32, 213),
-  );
-  BoxDecoration boxDecoration3 = const BoxDecoration(
-    borderRadius: BorderRadius.all(Radius.circular(100)),
-    color: Color.fromARGB(0, 250, 237, 255),
-  );
-  static DateTime now = DateTime.now();
-  static int nowUnix = DateTime(now.year,now.month,now.day,now.hour).millisecondsSinceEpoch ~/ 1000;
+  final int currentHour;
+  ChanceOfPrecipitationWidget(this.forecast, this.currentHour, {super.key});
+
+  static BoxDecoration boxDecor(Color color) => BoxDecoration(
+    borderRadius: const BorderRadius.all(Radius.circular(100)),
+    color: color,);
   late int k;
-  void _timeInit() {
-    DateTime endOfDay = DateTime(now.year, now.month, now.day, 23, 59, 59);
-    Duration timeUntilEndOfDay = endOfDay.difference(now);
-    for (int i=0;i<24;i++) {
-      if (nowUnix==forecast.forecast.forecastday[0].hour[i].timeEpoch) {
-        k=i;
-        break;
-      }
-    }
-  }
-  Row row(double widthX, int txt1, double chance) => Row(
+
+  Widget row(double widthX, int txt1, double chance) => Row(
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
       SizedBox(width: 25,
@@ -44,16 +26,16 @@ class BarChartSample1 extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-                decoration: boxDecoration1
+                decoration: boxDecor(Colors.white)
             ),
             Row(
               children: [
                 SizedBox(
                   width: (widthX-180)*chance/100,
-                  child: Container(decoration: boxDecoration2),),
+                  child: Container(decoration: boxDecor(const Color.fromARGB(255,138, 32, 213))),),
                 SizedBox(
                   width: (widthX-180)*(1-chance/100),
-                  child: Container(decoration: boxDecoration3),),
+                  child: Container(decoration: boxDecor(const Color.fromARGB(0, 250, 237, 255))),),
               ],
             ),
           ],
@@ -70,8 +52,8 @@ class BarChartSample1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _timeInit();
-    double widthX = MediaQuery.of(context).size.width;
+    k = currentHour;
+    double contextWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(top: 40),
       child: Column(
@@ -80,13 +62,13 @@ class BarChartSample1 extends StatelessWidget {
           for (int i=0; i<4;i++,k++)
             (k<24 )
               ?row(
-                  widthX,
+                  contextWidth,
                   k,
                   max(forecast.forecast.forecastday[0].hour[k].chanceOfSnow,
                       forecast.forecast.forecastday[0].hour[k].chanceOfRain),
               )
               :row(
-                widthX,
+                contextWidth,
                 k-24,
                 max(forecast.forecast.forecastday[1].hour[k-24].chanceOfSnow,
                     forecast.forecast.forecastday[1].hour[k-24].chanceOfRain)

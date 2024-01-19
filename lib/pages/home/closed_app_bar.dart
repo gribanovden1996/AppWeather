@@ -11,53 +11,49 @@ class ClosedAppBar extends StatelessWidget {
       Container(
           color: const Color.fromARGB(255, 226, 211, 250),
           child: SafeArea(
-            child: Column(
-              children: [
-                Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 13),
-                      child: Stack(
+            child: Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 13),
+                  child: Stack(
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text('${json.location.region}, ${json.location.country}'),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.search)),
-                            ],
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                                  textBaseline: TextBaseline.alphabetic,
-                                  children: [
-                                    Text('${json.current.tempC.ceil()}°',
-                                        style: const TextStyle(fontSize: 50)),
-                                    Text('Feels like ${json.current.feelslikeC.ceil()}°'),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 60,
-                                  height: 60,
-                                  child: Image.network('http:${json.current.condition.icon}',
-                                      fit: BoxFit.cover,
-                                  ),),
-                              ],
-                            ),
-                          ),
+                          Text('${json.location.region}, ${json.location.country}'),
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.search)),
                         ],
                       ),
-                    )
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.baseline,
+                              textBaseline: TextBaseline.alphabetic,
+                              children: [
+                                Text('${json.current.tempC.ceil()}°',
+                                    style: const TextStyle(fontSize: 50)),
+                                Text('Feels like ${json.current.feelslikeC.ceil()}°'),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 60,
+                              height: 60,
+                              child: Image.network('http:${json.current.condition.icon}',
+                                  fit: BoxFit.cover,
+                              ),),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 )
-              ],
             ),
           ),
       );

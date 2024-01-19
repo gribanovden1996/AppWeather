@@ -1,96 +1,200 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
+import 'package:weather1/pages/today/chance_of_precipitation_widget.dart';
+import 'package:weather1/pages/today/hourly_forecast_widget.dart';
+import 'package:weather1/pages/today/day_forecast_widget.dart';
 import 'package:weather1/pages/today/small_widget.dart';
+import 'package:weather1/pages/today/big_widget.dart';
+import 'package:weather1/json_weatherapi_forecast/json_forecast.dart';
 
-
-
+import '../data/geolocator.dart';
 
 class PageTomorrow extends StatelessWidget {
-  const PageTomorrow({super.key});
+  final JsonForecast forecast;
+  PageTomorrow(this.forecast, {super.key});
+
+  static DateTime today = DateTime.now();
+  DateTime tomorrow  = today.add(const Duration(days: 1));
+
+  static DateTime nowTime = DateTime.now();
+  late String txt1;
+  late String txt2;
+  late String txt3;
+  late String txt4;
+  late int currentHour;
+
+  void _timeInit() {
+    DateTime sunriseTime = DateTime(
+      tomorrow.year,
+      tomorrow.month,
+      tomorrow.day,
+      DateFormat('hh:mm a')
+          .parse(forecast.forecast.forecastday[1].astro.sunrise)
+          .hour,
+      DateFormat('hh:mm a')
+          .parse(forecast.forecast.forecastday[1].astro.sunrise)
+          .minute,
+    );
+    DateTime sunsetTime = DateTime(
+      tomorrow.year,
+      tomorrow.month,
+      tomorrow.day,
+      DateFormat('hh:mm a')
+          .parse(forecast.forecast.forecastday[1].astro.sunset)
+          .hour,
+      DateFormat('hh:mm a')
+          .parse(forecast.forecast.forecastday[1].astro.sunset)
+          .minute,
+    );
+    txt1 = DateFormat('HH:mm').format(sunriseTime);
+    txt3 = DateFormat('HH:mm').format(sunsetTime);
+
+    (sunriseTime.isBefore(nowTime))
+        ? txt2 = '${nowTime.difference(sunriseTime).inHours}ч назад'
+        : txt2 = 'через ${(nowTime.difference(sunriseTime).inHours).abs()}ч';
+
+    (sunsetTime.isBefore(nowTime))
+        ? txt4 = '${nowTime.difference(sunsetTime).inHours}ч назад'
+        : txt4 = 'через ${(nowTime.difference(sunsetTime).inHours).abs()}ч';
+
+    int nowUnix = DateTime(nowTime.year,nowTime.month,nowTime.day,nowTime.hour).millisecondsSinceEpoch ~/ 1000;
+    for (int i=0; i<24; i++) {
+      if (nowUnix==forecast.forecast.forecastday[0].hour[i].timeEpoch) {
+        currentHour = i;
+        break;
+      }
+    }
+  }
+
 
   @override
-  Widget build(BuildContext context) =>
-      Container(
-        color: const Color.fromARGB(255, 246, 237, 255),
-        child: Padding(
-          padding: const EdgeInsets.only(right:16.0,left: 16, bottom: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-              padding: EdgeInsets.only(bottom: 12.0),
+  Widget build(BuildContext context) {
+    _timeInit();
+    final loc = Geoloc();
+    return Container(
+      color: const Color.fromARGB(255, 246, 237, 255),
+      child: Padding(
+        padding: const EdgeInsets.only(right: 16.0, left: 16, bottom: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: FutureBuilder(
+                future: loc.getCurrentLocation(),
+                builder: (BuildContext context, AsyncSnapshot<Position?> snapshot) {
+                  if (snapshot.hasError) {
+                    return const Center(child: Text('error'));
+                  }
+                  if (!snapshot.hasData) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else {
+                    Position locat = snapshot.data!;
+                    return Text('${locat.latitude} ${locat.longitude}');
+                  }
+                }
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SmallWidget('assets/Group1.png','Wind speed','12km/h','2 km/h', arrow: true,img2: null,),
-                  SmallWidget('assets/Group2.png','Rain chance','24%','10%', arrow: false, img2: 'assets/rainy.png',),
+                  SmallWidget(
+                    'Group1.png',
+                    'Wind speed',
+                    '${forecast.forecast.forecastday[1].day.maxwindKph.ceil()} km/h',
+                    '${(forecast.forecast.forecastday[1].day.maxwindKph / 10).ceil()}km/h',
+                    arrow: true,
+                    img2: null,
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  const SmallWidget(
+                    'Group2.png',
+                    'Rain chance',
+                    '0 mm',
+                    '10%',
+                    arrow: false,
+                    img2: 'rainy.png',
+                  ),
                 ],
               ),
             ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 12.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SmallWidget('assets/Group1.png','Wind speed','12km/h','2 km/h', arrow: true,img2: null,),
-                    SmallWidget('assets/Group2.png','Rain chance','24%','10%', arrow: false, img2: 'assets/rainy.png',),
-                  ],
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SmallWidget('assets/Group2.png','Pressure','720 hpa','32 hpa', arrow: false,img2: 'assets/waves.png',),
-                    SmallWidget('assets/Group2.png','UV Index','2,3','0.3', arrow: true, img2: 'assets/light_mode.png',),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: Container(
-                  height: 150,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(18)),
-                    color: Color.fromARGB(77, 208, 188, 255),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SmallWidget(
+                    'Group2.png',
+                    'Pressure',
+                    '${forecast.current.pressureMb.ceil()} hpa',
+                    '${forecast.current.pressureIn.ceil()} hpa',
+                    arrow: false,
+                    img2: 'waves.png',
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: Container(
-                  height: 219,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(18)),
-                    color: Color.fromARGB(77, 208, 188, 255),
+                  const SizedBox(
+                    width: 16,
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: Container(
-                  height: 213,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(18)),
-                    color: Color.fromARGB(77, 208, 188, 255),
+                  SmallWidget(
+                    'Group2.png',
+                    'UV Index',
+                    '${forecast.forecast.forecastday[0].hour[currentHour].uv}',
+                    '10%',
+                    arrow: true,
+                    img2: 'light_mode.png',
                   ),
-                ),
+                ],
               ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 16.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SmallWidget('assets/Group3.png','Sunrise','4:20 AM','4h ago', arrow: null, img2: null,),
-                    SmallWidget('assets/Group4.png','Sunset','4:50 PM','in 9h',  arrow: null, img2: null,),
-                  ],
-                ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: BigWidget('Group 21.png', 'Hourly forecast', 150,
+                  widgetData: HourlyForecastWidget(forecast, currentHour)),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: BigWidget('Group 32.png', 'Day forecast', 219,
+                  widgetData: DayForecastWidget(forecast)),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: BigWidget('Group 33.png', 'Chance of precipitation', 213,
+                  widgetData: ChanceOfPrecipitationWidget(forecast, currentHour)),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SmallWidget(
+                    'Group3.png',
+                    'Sunrise',
+                    txt1,
+                    txt2,
+                    arrow: null,
+                    img2: null,
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  SmallWidget(
+                    'Group4.png',
+                    'Sunset',
+                    txt3,
+                    txt4,
+                    arrow: null,
+                    img2: null,
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }

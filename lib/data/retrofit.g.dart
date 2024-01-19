@@ -34,7 +34,44 @@ class _RestClient implements RestClient {
     )
             .compose(
               _dio.options,
-              '/forecast.json?key=787aa804050b4da7b70132421241101&q=51.660781,39.200296&days=10&lang=ru',
+              '/forecast.json?key=787aa804050b4da7b70132421241101&days=10&lang=ru&q=37.4226711,-122.0849872',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = JsonForecast.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<JsonForecast> getData2(
+    String apiKey,
+    int days,
+    String language,
+    String pos,
+  ) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'key': apiKey,
+      r'days': days,
+      r'lang': language,
+      r'q': pos,
+    };
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<JsonForecast>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/forecast.json',
               queryParameters: queryParameters,
               data: _data,
             )

@@ -16,7 +16,7 @@ class DayForecastWidget extends StatelessWidget {
   late double findMaxY;
   late double findMinY;
 
-  void maxMinInit() {
+  void _maxMinInit() {
     findMaxY = forecast.forecast.forecastday[0].day.avgtempC.ceil().toDouble();
     findMinY = forecast.forecast.forecastday[0].day.avgtempC.ceil().toDouble();
     for (int i = 1;i<7;i++) {
@@ -27,7 +27,7 @@ class DayForecastWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    maxMinInit();
+    _maxMinInit();
     return Stack(
       children: <Widget>[
         Padding(
@@ -58,8 +58,9 @@ class DayForecastWidget extends StatelessWidget {
       text = Text(DateFormat.E().format(DateTime.parse(forecast.forecast.forecastday[5].date)), style: style);
     } else if (value.toInt() == 6) {
       text = Text(DateFormat.E().format(DateTime.parse(forecast.forecast.forecastday[6].date)), style: style);
-    // ignore: curly_braces_in_flow_control_structures
-    } else text = const Text('', style: style);
+    } else {
+      text = const Text('', style: style);
+    }
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
@@ -139,8 +140,8 @@ class DayForecastWidget extends StatelessWidget {
       ),
       minX: 0,
       maxX: 6,
-      minY: findMinY.ceil().toDouble()-3,
-      maxY: findMaxY.ceil().toDouble()+3,
+      minY: findMinY.ceil().toDouble()-1,
+      maxY: findMaxY.ceil().toDouble()+1,
       lineBarsData: [
         LineChartBarData(
           spots: [

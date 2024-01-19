@@ -12,11 +12,11 @@ class PageToday extends StatelessWidget {
   PageToday(this.forecast, {super.key});
 
   static DateTime nowTime = DateTime.now();
-  String txt1 = 'load';
-  String txt2 = 'load';
-  String txt3 = 'load';
-  String txt4 = 'load';
-  late int k;
+  late String txt1;
+  late String txt2;
+  late String txt3;
+  late String txt4;
+  late int currentHour;
 
   void _timeInit() {
     DateTime sunriseTime = DateTime(
@@ -55,7 +55,7 @@ class PageToday extends StatelessWidget {
     int nowUnix = DateTime(nowTime.year,nowTime.month,nowTime.day,nowTime.hour).millisecondsSinceEpoch ~/ 1000;
       for (int i=0; i<24; i++) {
         if (nowUnix==forecast.forecast.forecastday[0].hour[i].timeEpoch) {
-          k = i;
+          currentHour = i;
           break;
         }
       }
@@ -118,7 +118,7 @@ class PageToday extends StatelessWidget {
                   SmallWidget(
                     'Group2.png',
                     'UV Index',
-                    '${forecast.forecast.forecastday[0].hour[k].uv}',
+                    '${forecast.forecast.forecastday[0].hour[currentHour].uv}',
                     '10%',
                     arrow: true,
                     img2: 'light_mode.png',
@@ -129,7 +129,7 @@ class PageToday extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 16),
               child: BigWidget('Group 21.png', 'Hourly forecast', 150,
-                  widgetData: HourlyForecastWidget(forecast)),
+                  widgetData: HourlyForecastWidget(forecast, currentHour)),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 16),
@@ -137,9 +137,9 @@ class PageToday extends StatelessWidget {
                   widgetData: DayForecastWidget(forecast)),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 16),
+              padding: const EdgeInsets.only(bottom: 16),
               child: BigWidget('Group 33.png', 'Chance of precipitation', 213,
-                  widgetData: BarChartSample1(forecast)),
+                  widgetData: ChanceOfPrecipitationWidget(forecast, currentHour)),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
