@@ -21,17 +21,15 @@ class CustomSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegat
       bool overlapsContent) {
     return Stack(
       children: [
-        Container(color: const Color.fromARGB(255, 246, 237, 255)),
         SizedBox(
-          height: min(MediaQuery.of(context).size.height,
-              MediaQuery.of(context).size.width),
+          height: contextWidth,
           child: Stack(
             children: [
               ClosedAppBar(forecast),
               Opacity(
-                  opacity: max((contextWidth - shrinkOffset) - _minExtent, 0) /
-                      (contextWidth - _minExtent),
-                  child: OpenedAppBar(forecast)),
+                  opacity: max((contextWidth+70 - shrinkOffset) - _minExtent, 0) /
+                      (contextWidth+70 - _minExtent),
+                  child: OpenedAppBar(forecast,contextWidth)),
             ],
           ),
         ),
@@ -41,7 +39,7 @@ class CustomSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegat
   }
 
   @override
-  double get maxExtent => contextWidth;
+  double get maxExtent => contextWidth+70;
 
   @override
   double get minExtent => _minExtent;

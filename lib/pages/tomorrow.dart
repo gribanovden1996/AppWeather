@@ -90,7 +90,7 @@ class PageTomorrow extends StatelessWidget {
                     return const Center(child: CircularProgressIndicator());
                   } else {
                     Position locat = snapshot.data!;
-                    return Text('${locat.latitude}, ${locat.longitude}');
+                    return Center(child: Text('${locat.latitude}, ${locat.longitude}'));
                   }
                 }
               ),

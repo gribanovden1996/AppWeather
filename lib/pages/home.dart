@@ -29,7 +29,7 @@ class HomeState extends State<Home> {
 
   Widget _buildPageWidget(JsonForecast forecast, JsonHistory history) {
     switch (page) {
-      case "PageTomorrow": return PageTomorrow(forecast,);
+      case "PageTomorrow": return PageTomorrow(forecast);
       case "Page_10_days": return Page10Days(forecast);
       default: return PageToday(forecast,history);
     }
@@ -40,7 +40,7 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     double contextWidth = min(MediaQuery.of(context).size.height,
-        MediaQuery.of(context).size.width) + 70;
+        MediaQuery.of(context).size.width);
     return Scaffold(
         backgroundColor: AppColors.appColor,
         body: FutureBuilder(
@@ -53,9 +53,7 @@ class HomeState extends State<Home> {
               Position locat = snapshot.data!;
               String pos = '${locat.latitude}, ${locat.longitude}';
               String pos2 = '51.660781, 39.200296';
-              return (!snapshot.hasData)
-                  ? const Center(child: CircularProgressIndicator())
-                  :FutureBuilder(
+              return FutureBuilder(
                   future: weather.getData2(
                       '787aa804050b4da7b70132421241101',
                       10,

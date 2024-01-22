@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:weather1/json_weatherapi_forecast/json_forecast.dart';
@@ -7,7 +6,8 @@ import 'package:weather1/resources/app_resources.dart';
 
 class OpenedAppBar extends StatelessWidget {
   final JsonForecast forecast;
-  const OpenedAppBar(this.forecast,{super.key});
+  final double contextWidth;
+  const OpenedAppBar(this.forecast,this.contextWidth,{super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +16,7 @@ class OpenedAppBar extends StatelessWidget {
         Container(
           color: const Color.fromARGB(255, 246, 237, 255),),
         Container(
-          height: min(MediaQuery.of(context).size.height,
-              MediaQuery.of(context).size.width) + 73,
+          height: contextWidth,
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/home/1.png'),

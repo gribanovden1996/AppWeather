@@ -22,16 +22,13 @@ class PageToday extends StatelessWidget {
   late int currentHour;
   late int arrow;
 
-  bool? _arrow(int a,int b,int c) {
-    (currentHour > 0)
-        ?arrow=b
-        :arrow=c;
-    if (arrow==a) {
+  bool? _arrow(int a,int b) {
+    if (b==a) {
       return null;
-    } else if (arrow > a) {
-      return true;}
+    } else if (b > a) {
+      return false;}
     else{
-      return false;
+      return true;
     }
   }
   void _timeInit() {
@@ -96,13 +93,12 @@ class PageToday extends StatelessWidget {
                     'Group1.png',
                     'Wind speed',
                     '${forecast.current.windKph.ceil()} km/h',
-                    // '${(forecast.current.windKph / 10).ceil()}km/h',
-                    (currentHour>0)
-                      ?'${(forecast.current.windKph.ceil()-forecast.forecast.forecastday[0].hour[currentHour-1].windKph.ceil()).abs()} km/h'
-                      :'${forecast.current.windKph.ceil()-history.forecast.forecastday[0].hour[23].windKph.ceil()} km/h',
-                    arrow: _arrow(forecast.current.windKph.ceil(),
-                        forecast.forecast.forecastday[0].hour[currentHour-1].windKph.ceil(),
-                        history.forecast.forecastday[0].hour[23].windKph.ceil()),
+                    (currentHour > 0)
+                        ? '${(forecast.current.windKph.ceil() - forecast.forecast.forecastday[0].hour[currentHour - 1].windKph.ceil()).abs()} km/h'
+                        : '${(forecast.current.windKph.ceil() - history.forecast.forecastday[0].hour[23].windKph.ceil()).abs()} km/h',
+                    arrow: ((currentHour > 0)
+                        ? _arrow(forecast.current.windKph.ceil(), forecast.forecast.forecastday[0].hour[currentHour - 1].windKph.ceil())
+                        : _arrow(forecast.current.windKph.ceil(), history.forecast.forecastday[0].hour[23].windKph.ceil())),
                     img2: null,
                   ),
                   const SizedBox(
@@ -132,9 +128,11 @@ class PageToday extends StatelessWidget {
                         ?'${(forecast.current.pressureMb.ceil()-forecast.forecast.forecastday[0].hour[currentHour-1].pressureMb.ceil()).abs()} hpa'
                         :'${(forecast.current.pressureMb.ceil()-history.forecast.forecastday[0].hour[23].pressureMb.ceil()).abs()} hpa',
                     // '${forecast.current.pressureIn.ceil()} hpa',
-                    arrow: _arrow(forecast.current.pressureMb.ceil(),
-                        forecast.forecast.forecastday[0].hour[currentHour-1].pressureMb.ceil(),
-                        history.forecast.forecastday[0].hour[currentHour-1].pressureMb.ceil()),
+                    arrow: ((currentHour>0)
+                        ?_arrow(forecast.current.pressureMb.ceil(),
+                          forecast.forecast.forecastday[0].hour[currentHour-1].pressureMb.ceil())
+                        :_arrow(forecast.current.pressureMb.ceil(),
+                          history.forecast.forecastday[0].hour[23].pressureMb.ceil())),
                     img2: 'waves.png',
                   ),
                   const SizedBox(
@@ -147,9 +145,11 @@ class PageToday extends StatelessWidget {
                     (currentHour>0)
                         ?'${(forecast.forecast.forecastday[0].hour[currentHour].uv.ceil()-forecast.forecast.forecastday[0].hour[currentHour-1].uv.ceil()).abs()}'
                         :'${(forecast.forecast.forecastday[0].hour[currentHour].uv.ceil()-history.forecast.forecastday[0].hour[23].uv.ceil()).abs()}',
-                    arrow: _arrow(forecast.forecast.forecastday[0].hour[currentHour].uv.ceil(),
-                        forecast.forecast.forecastday[0].hour[currentHour-1].uv.ceil(),
-                        history.forecast.forecastday[0].hour[23].uv.ceil()),
+                    arrow: ((currentHour>0)
+                        ?_arrow(forecast.forecast.forecastday[0].hour[currentHour].uv.ceil(),
+                          forecast.forecast.forecastday[0].hour[currentHour-1].uv.ceil())
+                        :_arrow(forecast.forecast.forecastday[0].hour[currentHour].uv.ceil(),
+                          history.forecast.forecastday[0].hour[23].uv.ceil())),
                     img2: 'light_mode.png',
                   ),
                 ],

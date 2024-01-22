@@ -17,7 +17,7 @@ class ChanceOfPrecipitationWidget extends StatelessWidget {
   Widget row(double widthX, int txt1, double chance) => Row(
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
-      SizedBox(width: 25,
+      SizedBox(width: 30,
         child: Align(
             alignment: Alignment.centerRight,
             child: Text('$txt1ч',
@@ -45,9 +45,9 @@ class ChanceOfPrecipitationWidget extends StatelessWidget {
           ],
         ),
       ),
-      const SizedBox(width: 20,),
+      const SizedBox(width: 15,),
       SizedBox(
-          width: 35,
+          width: 40,
           child: Align(
               alignment: Alignment.centerRight,
               child: Text('${chance.ceil()}%',
