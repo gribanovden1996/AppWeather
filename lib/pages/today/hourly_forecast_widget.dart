@@ -22,21 +22,18 @@ class HourlyForecastWidget extends StatelessWidget {
   );
   @override
   Widget build(BuildContext context) {
-    int k = currentHour;
+    var forecastday = forecast.forecast.forecastday;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        for (int i = 0; i<6;i++,k++)
-          if (k<24) dayColumn(
-              k,
-              forecast.forecast.forecastday[0].hour[k].condition.icon,
-              forecast.forecast.forecastday[0].hour[k].tempC.ceil()
-          )
-          else dayColumn(
-              k-24,
-              forecast.forecast.forecastday[1].hour[k-24].condition.icon,
-              forecast.forecast.forecastday[1].hour[k-24].tempC.ceil()
-          )
+        for (int i = 0, k = currentHour; i<6;i++,k++)
+          (k<24)
+              ?dayColumn(k,
+                  forecastday[0].hour[k].condition.icon,
+                  forecastday[0].hour[k].tempC.round())
+              :dayColumn(k-24,
+                  forecastday[1].hour[k-24].condition.icon,
+                  forecastday[1].hour[k-24].tempC.round())
       ],
     );
   }

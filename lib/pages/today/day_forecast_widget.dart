@@ -4,64 +4,58 @@ import 'package:weather1/resources/app_resources.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class DayForecastWidget extends StatelessWidget {
-  DayForecastWidget(this.forecast, {super.key});
+class DayForecastWidget extends StatefulWidget {
+  const DayForecastWidget(this.forecast, {super.key});
   final JsonForecast forecast;
 
+  @override
+  State<DayForecastWidget> createState() => _DayForecastWidgetState();
+}
+
+class _DayForecastWidgetState extends State<DayForecastWidget> {
   List<Color> gradientColors = [
     AppColors.contentColor1,
     AppColors.contentColor2,
   ];
 
   late double findMaxY;
+
   late double findMinY;
 
   void _maxMinInit() {
-    findMaxY = forecast.forecast.forecastday[0].day.avgtempC.ceil().toDouble();
-    findMinY = forecast.forecast.forecastday[0].day.avgtempC.ceil().toDouble();
-    for (int i = 1;i<7;i++) {
-      if (forecast.forecast.forecastday[i].day.avgtempC>findMaxY.ceil().toDouble()) findMaxY=forecast.forecast.forecastday[i].day.avgtempC.ceil().toDouble();
-      if (forecast.forecast.forecastday[i].day.avgtempC<findMinY.ceil().toDouble()) findMinY=forecast.forecast.forecastday[i].day.avgtempC.ceil().toDouble();
+    var forecastday = widget.forecast.forecast.forecastday;
+    findMaxY = forecastday[0].day.avgtempC.round().toDouble();
+    findMinY = forecastday[0].day.avgtempC.round().toDouble();
+    for (int i = 1; i < 7; i++) {
+      if (forecastday[i].day.avgtempC>findMaxY.round().toDouble()) findMaxY=forecastday[i].day.avgtempC.round().toDouble();
+      if (forecastday[i].day.avgtempC<findMinY.round().toDouble()) findMinY=forecastday[i].day.avgtempC.round().toDouble();
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState(){
+    super.initState();
     _maxMinInit();
-    return Stack(
-      children: <Widget>[
+  }
+
+  @override
+  Widget build(BuildContext context) => Stack(
+      children: [
         Padding(
-          padding: const EdgeInsets.only(top: 40,),
+          padding: const EdgeInsets.only(top: 40,right: 10),
           child: LineChart(mainData(),),
         ),
       ],
     );
-  }
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
-    const style = TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: 16,
-    );
-    Widget text;
-    if (value.toInt() == 0) {
-      text = Text(DateFormat.E().format(DateTime.parse(forecast.forecast.forecastday[0].date)), style: style);
-    } else if (value.toInt() == 1) {
-      text = Text(DateFormat.E().format(DateTime.parse(forecast.forecast.forecastday[1].date)), style: style);
-    } else if (value.toInt() == 2) {
-      text = Text(DateFormat.E().format(DateTime.parse(forecast.forecast.forecastday[2].date)), style: style);
-    } else if (value.toInt() == 3) {
-      text = Text(DateFormat.E().format(DateTime.parse(forecast.forecast.forecastday[3].date)), style: style);
-    } else if (value.toInt() == 4) {
-      text = Text(DateFormat.E().format(DateTime.parse(forecast.forecast.forecastday[4].date)), style: style);
-    } else if (value.toInt() == 5) {
-      text = Text(DateFormat.E().format(DateTime.parse(forecast.forecast.forecastday[5].date)), style: style);
-    } else if (value.toInt() == 6) {
-      text = Text(DateFormat.E().format(DateTime.parse(forecast.forecast.forecastday[6].date)), style: style);
-    } else {
-      text = const Text('', style: style);
+    Widget text = Text('', style: styleForecastWidget);
+    var forecastday = widget.forecast.forecast.forecastday;
+    for (int i = 0; i < 7; i++) {
+      if (value.toInt() == i) {
+        text = Text(DateFormat.E().format(DateTime.parse(forecastday[i].date)), style: styleForecastWidget);
+      }
     }
-
     return SideTitleWidget(
       axisSide: meta.axisSide,
       child: text,
@@ -69,27 +63,26 @@ class DayForecastWidget extends StatelessWidget {
   }
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
-    const style = TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: 15,
-    );
     String text;
     List<bool> q = [true,true,true];
-    if (value.ceil() == findMinY.ceil() && q[0]) {
-      text = '${findMinY.ceil()}°'; q[0] = !q[0];
-    }else if (value.toInt() == findMaxY.ceil() && q[1]) {
-      text = '${findMaxY.ceil()}°'; q[1] = !q[1];
-    }else if (value.ceil() == ((findMaxY.ceil()+findMinY.ceil())/2).ceil() && q[2]) {
-      text = '${((findMaxY.ceil()+findMinY.ceil())/2).ceil()}°'; q[2] = !q[2];
-    }else return Container();
+    if (value.round() == findMinY.round() && q[0]) {
+      text = '${findMinY.round()}°'; q[0] = !q[0];
+    }else if (value.toInt() == findMaxY.round() && q[1]) {
+      text = '${findMaxY.round()}°'; q[1] = !q[1];
+    }else if (value.round() == ((findMaxY.round()+findMinY.round())/2).round() && q[2]) {
+      text = '${((findMaxY.round()+findMinY.round())/2).round()}°'; q[2] = !q[2];
+    }else {
+      return Container();
+    }
 
     return Padding(
       padding: const EdgeInsets.only(right: 5),
-      child: Text(text, style: style, textAlign: TextAlign.right),
+      child: Text(text, style: styleForecastWidget2, textAlign: TextAlign.right),
     );
   }
 
   LineChartData mainData() {
+    var forecastday = widget.forecast.forecast.forecastday;
     return LineChartData(
       gridData: FlGridData(
         show: true,
@@ -140,19 +133,11 @@ class DayForecastWidget extends StatelessWidget {
       ),
       minX: 0,
       maxX: 6,
-      minY: findMinY.ceil().toDouble()-1,
-      maxY: findMaxY.ceil().toDouble()+1,
+      minY: findMinY.round().toDouble()-1,
+      maxY: findMaxY.round().toDouble()+1,
       lineBarsData: [
         LineChartBarData(
-          spots: [
-            FlSpot(0,forecast.forecast.forecastday[0].day.avgtempC),
-            FlSpot(1,forecast.forecast.forecastday[1].day.avgtempC),
-            FlSpot(2,forecast.forecast.forecastday[2].day.avgtempC),
-            FlSpot(3,forecast.forecast.forecastday[3].day.avgtempC),
-            FlSpot(4,forecast.forecast.forecastday[4].day.avgtempC),
-            FlSpot(5,forecast.forecast.forecastday[5].day.avgtempC),
-            FlSpot(6,forecast.forecast.forecastday[6].day.avgtempC),
-          ],
+          spots: [for (int i = 0; i < 7; i++) FlSpot(i.toDouble(),forecastday[i].day.avgtempC)],
           isCurved: true,
           color: Colors.black,
           barWidth: 2,
@@ -174,25 +159,21 @@ class DayForecastWidget extends StatelessWidget {
         ),
 
         LineChartBarData(
-          spots: [for (double i =0;i<7;i++) FlSpot(i,findMinY.ceil().toDouble())],
+          spots: [for (double i =0;i<7;i++) FlSpot(i,findMinY.round().toDouble())],
           color: const Color.fromARGB(33, 0, 0, 0),
           barWidth: 2,
           isStrokeCapRound: true,
-          dotData: const FlDotData(
-                  show: false,
-          ),
+          dotData: const FlDotData(show: false),
         ),
         LineChartBarData(
-          spots: [for (double i =0;i<7;i++) FlSpot(i,findMaxY.ceil().toDouble())],
+          spots: [for (double i =0;i<7;i++) FlSpot(i,findMaxY.round().toDouble())],
           color: const Color.fromARGB(33, 0, 0, 0),
           barWidth: 2,
           isStrokeCapRound: true,
-          dotData: const FlDotData(
-            show: false,
-          ),
+          dotData: const FlDotData(show: false),
         ),
         LineChartBarData(
-          spots: [for (double i =0;i<7;i++) FlSpot(i,((findMaxY.ceil().toDouble()+findMinY.ceil().toDouble())/2).ceil().toDouble())],
+          spots: [for (double i =0;i<7;i++) FlSpot(i,((findMaxY.round().toDouble()+findMinY.round().toDouble())/2).round().toDouble())],
           color: const Color.fromARGB(33, 0, 0, 0),
           barWidth: 2,
           isStrokeCapRound: true,

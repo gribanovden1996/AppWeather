@@ -71,3 +71,15 @@ TextStyle styleDayWidgetForecast2 = TextStyle(
   fontWeight: FontWeight.values[4],
   fontFamily: GoogleFonts.openSans().fontFamily,
 );
+TextStyle styleForecastWidget = TextStyle(
+  fontSize: 15,
+  color: AppColors.contentColorBlack,
+  fontWeight: FontWeight.values[4],
+  fontFamily: 'ProductSans',
+);
+TextStyle styleForecastWidget2 = TextStyle(
+  fontSize: 16,
+  color: AppColors.contentColorBlack,
+  fontWeight: FontWeight.values[4],
+  fontFamily: 'ProductSans',
+);

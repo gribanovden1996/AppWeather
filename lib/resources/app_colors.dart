@@ -41,4 +41,9 @@ class AppColors {
   static const Color chanceOfPrecipitationWidget2 = Color.fromARGB(0, 250, 237, 255);
 
   static const Color appColor = Color.fromARGB(255, 246, 237, 255);
+
+  static const Color up = Color.fromARGB(255, 138, 32, 213);
+  static const Color down = Color.fromARGB(255, 186, 26, 26);
+
+
 }

@@ -24,47 +24,43 @@ class DayWidget extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            Align(
+            Container(
               alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 15,bottom: 18,left: 18),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(day,
-                      style: styleDayWidget(AppColors.contentColorBlack)),
-                    Text(text,
-                      style: styleDayWidget(AppColors.dayWidget)),
-                  ],
-                ),
+              padding: const EdgeInsets.only(top: 15,bottom: 18,left: 18),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(day,
+                    style: styleDayWidget(AppColors.contentColorBlack)),
+                  Text(text,
+                    style: styleDayWidget(AppColors.dayWidget)),
+                ],
               ),
             ),
-            Align(
+            Container(
               alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 45,top: 15,bottom: 18),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text('${tempMax.ceil()}°',
-                              style: styleDayWidget(AppColors.dayWidgetTemp)),
-                          Text('${tempMin.ceil()}°',
-                              style: styleDayWidget(AppColors.dayWidgetTemp)),
-                        ],
-                      ),
+              padding: const EdgeInsets.only(right: 45,top: 15,bottom: 18),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text('${tempMax.ceil()}°',
+                            style: styleDayWidget(AppColors.dayWidgetTemp)),
+                        Text('${tempMin.ceil()}°',
+                            style: styleDayWidget(AppColors.dayWidgetTemp)),
+                      ],
                     ),
-                    const Divider(height: 35,thickness: 4,color: Colors.black,endIndent: 12),
-                    Image.network('http:$img'),
-                  ],
-                ),
+                  ),
+                  const Divider(height: 35,thickness: 4,color: Colors.black,endIndent: 12),
+                  Image.network('http:$img'),
+                ],
               ),
             ),
             Align(

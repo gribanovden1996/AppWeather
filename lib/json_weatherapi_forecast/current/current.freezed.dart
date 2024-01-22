@@ -26,6 +26,7 @@ mixin _$Current {
   double get pressureMb => throw _privateConstructorUsedError;
   double get pressureIn => throw _privateConstructorUsedError;
   double get feelslikeC => throw _privateConstructorUsedError;
+  double get uv => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +44,8 @@ abstract class $CurrentCopyWith<$Res> {
       double windKph,
       double pressureMb,
       double pressureIn,
-      double feelslikeC});
+      double feelslikeC,
+      double uv});
 
   $ConditionCopyWith<$Res> get condition;
 }
@@ -67,6 +69,7 @@ class _$CurrentCopyWithImpl<$Res, $Val extends Current>
     Object? pressureMb = null,
     Object? pressureIn = null,
     Object? feelslikeC = null,
+    Object? uv = null,
   }) {
     return _then(_value.copyWith(
       tempC: null == tempC
@@ -93,6 +96,10 @@ class _$CurrentCopyWithImpl<$Res, $Val extends Current>
           ? _value.feelslikeC
           : feelslikeC // ignore: cast_nullable_to_non_nullable
               as double,
+      uv: null == uv
+          ? _value.uv
+          : uv // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 
@@ -118,7 +125,8 @@ abstract class _$$CurrentImplCopyWith<$Res> implements $CurrentCopyWith<$Res> {
       double windKph,
       double pressureMb,
       double pressureIn,
-      double feelslikeC});
+      double feelslikeC,
+      double uv});
 
   @override
   $ConditionCopyWith<$Res> get condition;
@@ -141,6 +149,7 @@ class __$$CurrentImplCopyWithImpl<$Res>
     Object? pressureMb = null,
     Object? pressureIn = null,
     Object? feelslikeC = null,
+    Object? uv = null,
   }) {
     return _then(_$CurrentImpl(
       tempC: null == tempC
@@ -167,6 +176,10 @@ class __$$CurrentImplCopyWithImpl<$Res>
           ? _value.feelslikeC
           : feelslikeC // ignore: cast_nullable_to_non_nullable
               as double,
+      uv: null == uv
+          ? _value.uv
+          : uv // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -181,7 +194,8 @@ class _$CurrentImpl with DiagnosticableTreeMixin implements _Current {
       required this.windKph,
       required this.pressureMb,
       required this.pressureIn,
-      required this.feelslikeC});
+      required this.feelslikeC,
+      required this.uv});
 
   factory _$CurrentImpl.fromJson(Map<String, dynamic> json) =>
       _$$CurrentImplFromJson(json);
@@ -198,10 +212,12 @@ class _$CurrentImpl with DiagnosticableTreeMixin implements _Current {
   final double pressureIn;
   @override
   final double feelslikeC;
+  @override
+  final double uv;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Current(tempC: $tempC, condition: $condition, windKph: $windKph, pressureMb: $pressureMb, pressureIn: $pressureIn, feelslikeC: $feelslikeC)';
+    return 'Current(tempC: $tempC, condition: $condition, windKph: $windKph, pressureMb: $pressureMb, pressureIn: $pressureIn, feelslikeC: $feelslikeC, uv: $uv)';
   }
 
   @override
@@ -214,7 +230,8 @@ class _$CurrentImpl with DiagnosticableTreeMixin implements _Current {
       ..add(DiagnosticsProperty('windKph', windKph))
       ..add(DiagnosticsProperty('pressureMb', pressureMb))
       ..add(DiagnosticsProperty('pressureIn', pressureIn))
-      ..add(DiagnosticsProperty('feelslikeC', feelslikeC));
+      ..add(DiagnosticsProperty('feelslikeC', feelslikeC))
+      ..add(DiagnosticsProperty('uv', uv));
   }
 
   @override
@@ -231,13 +248,14 @@ class _$CurrentImpl with DiagnosticableTreeMixin implements _Current {
             (identical(other.pressureIn, pressureIn) ||
                 other.pressureIn == pressureIn) &&
             (identical(other.feelslikeC, feelslikeC) ||
-                other.feelslikeC == feelslikeC));
+                other.feelslikeC == feelslikeC) &&
+            (identical(other.uv, uv) || other.uv == uv));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, tempC, condition, windKph,
-      pressureMb, pressureIn, feelslikeC);
+      pressureMb, pressureIn, feelslikeC, uv);
 
   @JsonKey(ignore: true)
   @override
@@ -260,7 +278,8 @@ abstract class _Current implements Current {
       required final double windKph,
       required final double pressureMb,
       required final double pressureIn,
-      required final double feelslikeC}) = _$CurrentImpl;
+      required final double feelslikeC,
+      required final double uv}) = _$CurrentImpl;
 
   factory _Current.fromJson(Map<String, dynamic> json) = _$CurrentImpl.fromJson;
 
@@ -276,6 +295,8 @@ abstract class _Current implements Current {
   double get pressureIn;
   @override
   double get feelslikeC;
+  @override
+  double get uv;
   @override
   @JsonKey(ignore: true)
   _$$CurrentImplCopyWith<_$CurrentImpl> get copyWith =>

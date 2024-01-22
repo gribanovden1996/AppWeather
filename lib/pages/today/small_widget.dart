@@ -1,9 +1,6 @@
 import 'dart:core';
-
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:weather1/resources/app_colors.dart';
 
 import '../../resources/app_text_style.dart';
@@ -14,7 +11,7 @@ class SmallWidget extends StatelessWidget {
   final String? img2;
   final String txt1;
   final String txt2;
-  final String txt3;
+  final String? txt3;
   final bool? arrow;
   static String path ='assets/small_widget/';
   
@@ -64,12 +61,10 @@ class SmallWidget extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      if (arrow != null)
-                        arrow!
-                          ? const Icon(Icons.arrow_drop_down, size: 16, color: Color.fromARGB(255, 186, 26, 26))
-                          : const Icon(Icons.arrow_drop_up, size: 16, color: Color.fromARGB(255, 138, 32, 213)),
-                      Text(
-                        txt3,
+                      if (arrow != null) arrow!
+                          ? const Icon(Icons.arrow_drop_up, size: 16, color: AppColors.up)
+                          : const Icon(Icons.arrow_drop_down, size: 16, color: AppColors.down),
+                      if (txt3!=null) Text(txt3!,
                         style: styleSmallWidget2,)
                     ],
                   ),

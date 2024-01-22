@@ -23,6 +23,7 @@ abstract class Current with _$Current {
     required double pressureMb,
     required double pressureIn,
     required double feelslikeC,
+    required double uv,
   }) = _Current;
 
   factory Current.fromJson(Map<String, dynamic> json) => _$CurrentFromJson(json);
