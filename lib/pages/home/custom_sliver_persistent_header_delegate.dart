@@ -18,25 +18,23 @@ class CustomSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegat
   Widget build(
       BuildContext context,
       double shrinkOffset,
-      bool overlapsContent) {
-    return Stack(
-      children: [
-        SizedBox(
-          height: contextWidth,
-          child: Stack(
-            children: [
-              ClosedAppBar(forecast),
-              Opacity(
-                  opacity: max((contextWidth+70 - shrinkOffset) - _minExtent, 0) /
+      bool overlapsContent) => Stack(
+    children: [
+      SizedBox(
+        height: contextWidth,
+        child: Stack(
+          children: [
+            ClosedAppBar(forecast),
+            Opacity(
+                opacity: max((contextWidth+70 - shrinkOffset) - _minExtent, 0) /
                       (contextWidth+70 - _minExtent),
-                  child: OpenedAppBar(forecast,contextWidth)),
-            ],
-          ),
+                child: OpenedAppBar(forecast,contextWidth)),
+          ],
         ),
-        Button(changePage),
-      ],
-    );
-  }
+      ),
+      Button(changePage),
+    ],
+  );
 
   @override
   double get maxExtent => contextWidth+70;

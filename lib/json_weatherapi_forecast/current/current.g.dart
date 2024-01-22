@@ -14,6 +14,7 @@ _$CurrentImpl _$$CurrentImplFromJson(Map<String, dynamic> json) =>
       pressureMb: (json['pressure_mb'] as num).toDouble(),
       pressureIn: (json['pressure_in'] as num).toDouble(),
       feelslikeC: (json['feelslike_c'] as num).toDouble(),
+      uv: (json['uv'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$CurrentImplToJson(_$CurrentImpl instance) =>
@@ -24,4 +25,5 @@ Map<String, dynamic> _$$CurrentImplToJson(_$CurrentImpl instance) =>
       'pressure_mb': instance.pressureMb,
       'pressure_in': instance.pressureIn,
       'feelslike_c': instance.feelslikeC,
+      'uv': instance.uv,
     };

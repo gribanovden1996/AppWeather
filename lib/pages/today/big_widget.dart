@@ -24,29 +24,25 @@ class BigWidget extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            Align(
+            Container(
               alignment: Alignment.topLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 12,left: 11),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Image.asset(path+img),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8),
-                      child: Text(txt1,
-                          style: styleBigWidget),
-                    )
-                  ],
-                ),
+              padding: const EdgeInsets.only(top: 12,left: 11),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(path+img),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Text(txt1,
+                        style: styleBigWidget),
+                  )
+                ],
               ),
             ),
-            Align(
+            Container(
               alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 13,left: 20,right: 20),
-                child: widgetData,
-              ),
+              padding: const EdgeInsets.only(bottom: 13,left: 20,right: 20),
+              child: widgetData,
             )
           ],
         ),

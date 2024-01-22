@@ -58,14 +58,13 @@ class ChanceOfPrecipitationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    k = currentHour;
     double contextWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.only(top: 40),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          for (int i=0; i<4;i++,k++)
+          for (int i=0,k=currentHour; i<4;i++,k++)
             (k<24 )
               ?row(
                   contextWidth,
